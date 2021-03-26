@@ -1,37 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head></head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualisation</title>
+    <script src="http://d3js.org/d3.v6.min.js"></script>
+    <script src="app.js" defer></script>
+</head>
 <body>
-<div id="pie"></div>
-<button id="addData"> Add Data </button>
-<script src="http://d3js.org/d3.v6.min.js"></script>
-    
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
-<script src="d3pie.js"></script>
-<script src="d3.min.js"></script>
-<script>
-var data = [
-{ label: "1", value: 1 },
-{ label: "2", value: 4 },
-{ label: "3", value: 3 }
-];
-var pie = new d3pie("pie", {
-    data: {
-        content: data
-    }
-});
-
-$(function() {
-    var num = 4;
-    $("#addData").on("click", function() {
-        data.push({
-            label: num.toString(),
-            value: Math.floor(Math.random() * 10) + 1
-        });
-        pie.updateProp("data.content", data);
-        num++;
-    });
-});
-</script>
+    <div id="myPie"></div>
 </body>
 </html>
