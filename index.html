@@ -61,7 +61,7 @@ var yAxisLeft = d3.svg.axis().scale(y0).ticks(4).orient("left");
 // create right yAxis
 var yAxisRight = d3.svg.axis().scale(y1).ticks(6).orient("right");
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("draw_here").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
