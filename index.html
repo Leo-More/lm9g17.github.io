@@ -33,125 +33,95 @@
 
 <!-- Main Body -->
 <div class="container">
-    <h3>Bar Chart</h3>
-    <p>We can draw a bar chart by usig svg to render a rectangle of the appropriate size for each datapoint.</p>
-    <p>In this example, we also use a D3 logarithmic scale, to map the domain of values 5-1300 to the range of
-    bar heights 0-500.</p>
+    <h3>Surveys sent and responses</h3>
+    <p></p>
 
     <div class="col-md-6">
         <div id="draw_here"></div>
     </div>
-
-    <div class="col-md-6">
-<pre>
-    var w = 500;
-    var h = 500;
-    var barPadding = 1;
-
-    var dataset = [ 5, 10, 100, 279, 500, 25, 750, 1200, 800, 1300,
-        110, 102, 15, 200, 175, 168, 180, 230, 205 ];
-
-    var scale = d3.scale.log();
-    scale.domain([5, 1300]);
-    scale.range([0, 500]);
-
-    var svg = d3.select("#draw_here")
-            .append("svg")
-            .attr("width", w)
-            .attr("height", h);
-
-    svg.selectAll("rect")
-            .data(dataset)
-            .enter()
-            .append("rect")
-            .attr("x", function(d, i) {
-                return i * (w / dataset.length);
-            })
-            .attr("y", function(d) {
-                return h - scale(d);
-            })
-            .attr("width", w / dataset.length - barPadding)
-            .attr("height", function(d) {
-                return scale(d);
-            })
-            .attr("fill", function(d) {
-                return "rgb(0, 0, " + (d * 10) + ")";
-            });
-
-    svg.selectAll("text")
-            .data(dataset)
-            .enter()
-            .append("text")
-            .text(function(d) {
-                return d;
-            })
-            .attr("text-anchor", "middle")
-            .attr("x", function(d, i) {
-                return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
-            })
-            .attr("y", function(d) {
-                return h - scale(d) + 14;
-            })
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "11px")
-            .attr("fill", "white");
-
-</pre>
-    </div>
 </div>
 
 <script type="text/javascript">
-    var w = 500;
-    var h = 500;
-    var barPadding = 1;
+   var margin = {top: 80, right: 80, bottom: 80, left: 80},
+    width = 600 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
-    var dataset = [ 5, 10, 100, 279, 500, 25, 750, 1200, 800, 1300,
-        110, 102, 15, 200, 175, 168, 180, 230, 205 ];
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
 
-    var scale = d3.scale.log();
-    scale.domain([5, 1300]);
-    scale.range([0, 500]);
+var y0 = d3.scale.linear().domain([300, 1100]).range([height, 0]),
+y1 = d3.scale.linear().domain([20, 80]).range([height, 0]);
 
-    var svg = d3.select("#draw_here")
-            .append("svg")
-            .attr("width", w)
-            .attr("height", h);
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
 
-    svg.selectAll("rect")
-            .data(dataset)
-            .enter()
-            .append("rect")
-            .attr("x", function(d, i) {
-                return i * (w / dataset.length);
-            })
-            .attr("y", function(d) {
-                return h - scale(d);
-            })
-            .attr("width", w / dataset.length - barPadding)
-            .attr("height", function(d) {
-                return scale(d);
-            })
-            .attr("fill", function(d) {
-                return "rgb(0, 0, " + (d * 10) + ")";
-            });
+// create left yAxis
+var yAxisLeft = d3.svg.axis().scale(y0).ticks(4).orient("left");
+// create right yAxis
+var yAxisRight = d3.svg.axis().scale(y1).ticks(6).orient("right");
 
-    svg.selectAll("text")
-            .data(dataset)
-            .enter()
-            .append("text")
-            .text(function(d) {
-                return d;
-            })
-            .attr("text-anchor", "middle")
-            .attr("x", function(d, i) {
-                return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
-            })
-            .attr("y", function(d) {
-                return h - scale(d) + 14;
-            })
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "11px")
-            .attr("fill", "white");
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("class", "graph")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.tsv("data.tsv", type, function(error, data) {
+  x.domain(data.map(function(d) { return d.year; }));
+  y0.domain([0, d3.max(data, function(d) { return d.money; })]);
+  
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+	  .attr("class", "y axis axisLeft")
+	  .attr("transform", "translate(0,0)")
+	  .call(yAxisLeft)
+	.append("text")
+	  .attr("y", 6)
+	  .attr("dy", "-2em")
+	  .style("text-anchor", "end")
+	  .style("text-anchor", "end")
+	  .text("Dollars");
+	
+  svg.append("g")
+	  .attr("class", "y axis axisRight")
+	  .attr("transform", "translate(" + (width) + ",0)")
+	  .call(yAxisRight)
+	.append("text")
+	  .attr("y", 6)
+	  .attr("dy", "-2em")
+	  .attr("dx", "2em")
+	  .style("text-anchor", "end")
+	  .text("#");
+
+  bars = svg.selectAll(".bar").data(data).enter();
+
+  bars.append("rect")
+      .attr("class", "bar1")
+      .attr("x", function(d) { return x(d.year); })
+      .attr("width", x.rangeBand()/2)
+      .attr("y", function(d) { return y0(d.money); })
+	  .attr("height", function(d,i,j) { return height - y0(d.money); }); 
+
+  bars.append("rect")
+      .attr("class", "bar2")
+      .attr("x", function(d) { return x(d.year) + x.rangeBand()/2; })
+      .attr("width", x.rangeBand() / 2)
+      .attr("y", function(d) { return y1(d.number); })
+	  .attr("height", function(d,i,j) { return height - y1(d.number); }); 
+
+});
+
+function type(d) {
+  d.money = +d.money;
+  return d;
+}
+
 </script>
 
 </body>
