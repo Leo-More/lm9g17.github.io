@@ -103,7 +103,7 @@
                 pC.update(tF);
                 //leg.update(tF);
             }
-            /*
+            
             hG.update = function(nD, color){
                 // update the domain of the y-axis map to reflect change in frequencies.
                 y.domain([0, d3.max(nD, function(d) { return d[1]; })]);
@@ -121,7 +121,7 @@
                 bars.select("text").transition().duration(500)
                     .text(function(d){ return d3.format(",")(d[1])})
                     .attr("y", function(d) {return y(d[1])-5; });            
-            }        */
+            }        
             return hG;
         }
         
@@ -155,13 +155,13 @@
             }
             
             function mouseover(d){
-               // hG.update(fData.map(function(v){ 
-               //     return [v.State,v.freq[d.data.type]];}),segColor(d.data.type));
+                hG.update(fData.map(function(v){ 
+                    return [v.State,v.freq[d.data.type]];}),segColor(d.data.type));
             }
             
             function mouseout(d){
-               // hG.update(fData.map(function(v){
-               //     return [v.State,v.total];}), barColor);
+                hG.update(fData.map(function(v){
+                    return [v.State,v.total];}), barColor);
             }
 
             // Animating the pie-slice
