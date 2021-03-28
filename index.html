@@ -45,41 +45,36 @@
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script>
     function dashboard(fData){
-        var barColor = 'steelblue';
         function segColor(c){ return {low:"#807dba",mid:"#e08214",high:"#41ab5d",all:'steelblue'}[c];}
         
         // function to handle histogram.
         function histoGram(fD){
-            var id = '#bar'; 
-            var hG={}
-            var hGDim = {t:60, r:0, b:30, l:0};
+            var id = '#bar', hG={}, hGDim = {t:60, r:0, b:30, l:0};
             hGDim.w = 700 - hGDim.l - hGDim.r, 
             hGDim.h = 300 - hGDim.t - hGDim.b;
                 
             // create svg for histogram.
             var hGsvg = d3.select(id).append("svg")
-                .attr("width", hGDim.w + hGDim.l + hGDim.r)
-                .attr("height", hGDim.h + hGDim.t + hGDim.b).append("g")
-                .attr("transform", "translate(" + hGDim.l + "," + hGDim.t + ")");
+                    .attr("width", hGDim.w + hGDim.l + hGDim.r)
+                    .attr("height", hGDim.h + hGDim.t + hGDim.b).append("g")
+                    .attr("transform", "translate(" + hGDim.l + "," + hGDim.t + ")");
     
             // create function for x-axis mapping.
             var x = d3.scale.ordinal().rangeRoundBands([0, hGDim.w], 0.1)
                     .domain(fD.map(function(d) { return d[0]; }));
     
             // Add x-axis to the histogram svg.
-            hGsvg.append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + hGDim.h + ")")
-                .call(d3.svg.axis().scale(x).orient("bottom"));
+            hGsvg.append("g").attr("class", "x axis")
+                    .attr("transform", "translate(0," + hGDim.h + ")")
+                    .call(d3.svg.axis().scale(x).orient("bottom"));
 
             // Title
-            hGsvg.append("text")
-                .attr("x", (hGDim.w / 2))             
-                .attr("y", 0 - (hGDim.t / 2))
-                .attr("text-anchor", "middle")  
-                .style("font-size", "16px") 
-                .style("text-decoration", "underline")  
-                .text("Total number of surveys sent out");
+            hGsvg.append("text").attr("x", (hGDim.w / 2))   
+                    .attr("y", 0 - (hGDim.t / 2))
+                    .attr("text-anchor", "middle")  
+                    .style("font-size", "16px") 
+                    .style("text-decoration", "underline")  
+                    .text("Total number of surveys sent out");
     
             // Create function for y-axis map.
             var y = d3.scale.linear().range([hGDim.h, 0])
@@ -90,14 +85,13 @@
                     .append("g").attr("class", "bar");
             
             //create the rectangles.
-            bars.append("rect")
-                .attr("x", function(d) { return x(d[0]); })
-                .attr("y", function(d) { return y(d[1]); })
-                .attr("width", x.rangeBand())
-                .attr("height", function(d) { return hGDim.h - y(d[1]); })
-                .attr('fill',barColor)
-                .on("mouseover",mouseover)
-                .on("mouseout",mouseout);
+            bars.append("rect").attr("x", function(d) { return x(d[0]); })
+                    .attr("y", function(d) { return y(d[1]); })
+                    .attr("width", x.rangeBand())
+                    .attr("height", function(d) { return hGDim.h - y(d[1]); })
+                    .attr('fill','steelblue')
+                    .on("mouseover",mouseover)
+                    .on("mouseout",mouseout);
                 
             //Create the frequency labels above the rectangles.
             bars.append("text").text(function(d){ return d3.format(",")(d[1])})
@@ -138,6 +132,32 @@
             return hG;
         }
         
+        function key(lD){
+            var id = '#bar', leg = {};
+                
+            // create table and row for the legend.
+            var legend = d3.select(id).append("table").attr('class','legend');
+            var tr = legend.append("tbody").selectAll("tr").data(lD).enter().append("tr");
+                
+            // create the columns for each segment.
+            tr.append("td").text(function(d){ return d.type;});
+            tr.append("td").text(function(d){ return d.type;});
+    
+            // Utility function to be used to update the legend.
+            leg.update = function(nD){
+                // update the data attached to the row elements.
+                var l = legend.select("tbody").selectAll("tr").data(nD);
+    
+                // update the frequencies.
+             //   l.select(".legendFreq").text(function(d){ return d3.format(",")(d.freq);});
+    
+                // update the percentage column.
+           //     l.select(".legendPerc").text(function(d){ return getLegend(d,nD);});        
+            }
+    
+            return leg;
+        }
+
         // function to handle pieChart.
         function pieChart(pD){
             var id = '#pie';
@@ -175,7 +195,7 @@
             
             function mouseout(d){
                 hG.update(fData.map(function(v){
-                    return [v.Industry,v.all];}), barColor);
+                    return [v.Industry,v.all];}), 'steelblue');
             }
 
             // Animating the pie-slice
