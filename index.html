@@ -44,7 +44,7 @@
 <script>
     function dashboard(id, fData){
         var barColor = 'steelblue';
-        function segColor(c){ return {low:"#807dba",high:"#e08214",all:"#41ab5d",all:'steelblue'}[c];}
+        function segColor(c){ return {low:"#807dba",mid:"#e08214",high:"#41ab5d",all:'steelblue'}[c];}
         
         // function to handle histogram.
         function histoGram(fD){
@@ -213,32 +213,32 @@
             return leg;
         }
         */
-        var tF = ['low','high','all'].map(function(d){return {type:d, freq:d.freq.all};});    
-        var iF = fData.map(function(d){return [d.Industry,d.freq.all];});
+        //var tF = ['low','high','all'].map(function(d){return {type:d, freq:d.freq.all};});    
+        var iF = fData.map(function(d){return [d.Industry,d.all];});
     
         // Make charts
-        var hG = histoGram(iF), pC = pieChart(tF);//, leg= legend(tF);
+        var hG = histoGram(iF);//, pC = pieChart(tF);//, leg= legend(tF);
     }
     </script>
 
 <script>
 var sentData=[
-  {Industry:"MQ",freq:{low:15,high:13,all:28}},
-  {Industry:"M",freq:{low:1785,high:1370,all:3155}},
-  {Industry:"WS",freq:{low:130,high:71,all:201}},
-  {Industry:"C",freq:{low:722,high:312,all:1034}},
-  {Industry:"WM",freq:{low:1819,high:1180,all:2999}},
-  {Industry:"AF",freq:{low:975,high:659,all:1634}},
-  {Industry:"TS",freq:{low:528,high:335,all:863}},
-  {Industry:"IC",freq:{low:794,high:422,all:1216}},
-  {Industry:"RA",freq:{low:112,high:88,all:200}},
-  {Industry:"PA",freq:{low:1303,high:720,all:2023}},
-  {Industry:"AA",freq:{low:1287,high:1072,all:2359}},
-  {Industry:"E",freq:{low:303,high:457,all:760}},
-  {Industry:"HA",freq:{low:145,high:149,all:294}},
-  {Industry:"AR",freq:{low:415,high:303,all:718}},
-  {Industry:"O",freq:{low:108,high:29,all:137}},
-  {Industry:"ALL",freq:{low:10442,high:7181,all:17623}}
+  {Industry:"MQ",freq:{low:15,high:13},all:28},
+  {Industry:"M",freq:{low:1785,high:1370},all:3155},
+  {Industry:"WS",freq:{low:130,high:71},all:201},
+  {Industry:"C",freq:{low:722,high:312},all:1034},
+  {Industry:"WM",freq:{low:1819,high:1180},all:2999},
+  {Industry:"AF",freq:{low:975,high:659},all:1634},
+  {Industry:"TS",freq:{low:528,high:335},all:863},
+  {Industry:"IC",freq:{low:794,high:422},all:1216},
+  {Industry:"RA",freq:{low:112,high:88},all:200},
+  {Industry:"PA",freq:{low:1303,high:720},all:2023},
+  {Industry:"AA",freq:{low:1287,high:1072},all:2359},
+  {Industry:"E",freq:{low:303,high:457},all:760},
+  {Industry:"HA",freq:{low:145,high:149},all:294},
+  {Industry:"AR",freq:{low:415,high:303},all:718},
+  {Industry:"O",freq:{low:108,high:29},all:137},
+  {Industry:"ALL",freq:{low:10442,high:7181},all:17623}
 ];
 
 dashboard('#dashboard',sentData);
