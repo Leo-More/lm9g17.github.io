@@ -47,7 +47,6 @@
     function dashboard(fData){
         function segColor(c){ return {low:"#807dba",mid:"#e08214",high:"#41ab5d",all:'steelblue'}[c];}
         
-        // function to handle histogram.
         function histoGram(fD){
             var id = '#bar', hG={}, hGDim = {t:60, r:0, b:30, l:0};
             hGDim.w = 700 - hGDim.l - hGDim.r, 
@@ -155,7 +154,6 @@
             return leg;
         }
 
-        // function to handle pieChart.
         function pieChart(pD){
             var id = '#pie';
             var pC ={},    
@@ -204,7 +202,6 @@
             return pC;
         }
         
-        // function to handle legend.
         function legend(lD){
             var id = '#pie', leg = {};
                 
@@ -245,9 +242,7 @@
             return {type:d, freq:d3.sum(fData.map(function(t){ return t.freq[d];}))}; 
         });    
         var iF = fData.map(function(d){return [d.Industry,d.all];});
-    
-        // Make charts
-        var key = key(iF), hG = histoGram(iF), pC = pieChart(tF), leg = legend(tF);
+        var hG = histoGram(iF), key = key(iF), pC = pieChart(tF), leg = legend(tF);
     }
 </script>
 
