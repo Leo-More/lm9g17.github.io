@@ -49,6 +49,12 @@
 </style>
 
 <body>
+<div id="choose">
+    <select onchange="filter()" id="filter">
+        <option value="sent">Sent</option>
+        <option value="responses">Responses</option>
+    </select>
+</div>
 <div id='bar' class='left'></div>
 <div id='key' class='right'></div>
 <div id='pie' class='left'><h3>Total not including</h3></div>
@@ -279,7 +285,29 @@ var sentData=[
   {Industry:"Other Service Activities",freq:{low:108,high:29},all:137},
 ];
 
-dashboard(sentData);
+var sentData=[
+  {Industry:"Manufacturing",freq:{low:648,high:449},all:1097},
+  {Industry:"Water Supply, Sewerage, Waste Management and Remediation Activities",freq:{low:50,high:20},all:70},
+  {Industry:"Construction",freq:{low:208,high:76},all:284},
+  {Industry:"Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",freq:{low:686,high:344},all:1030},
+  {Industry:"Accommodation and Food Service Activities",freq:{low:321,high:195},all:516},
+  {Industry:"Transportation and Storage",freq:{low:193,high:89},all:282},
+  {Industry:"Information and Communication",freq:{low:297,high:121},all:418},
+  {Industry:"Professional, Scientific and Technical Activities",freq:{low:468,high:265},all:733},
+  {Industry:"Administrative and Support Service Activities",freq:{low:453,high:361},all:814},
+  {Industry:"Education",freq:{low:127,high:191},all:318},
+  {Industry:"Human Health and Social Work Activities",freq:{low:85,high:59},all:144},
+  {Industry:"Arts, Entertainment and Recreation",freq:{low:180,high:98},all:278},
+];
+
+function filter() {
+  var x = document.getElementById("filter").value;
+  if (x == 'sent') {dashboard(sentData);}
+  else if (x == 'response') {dashboard(responseData);}
+}
+
+//filter();
+
 </script>
 </body>
 </html>
