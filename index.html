@@ -242,7 +242,7 @@
             return {type:d, freq:d3.sum(fData.map(function(t){ return t.freq[d];}))}; 
         });    
         var iF = fData.map(function(d){return [d.Industry,d.all];});
-        var hG = histoGram(iF), key = key(iF), pC = pieChart(tF), leg = legend(tF);
+        var key = key(iF), hG = histoGram(iF), pC = pieChart(tF), leg = legend(tF);
     }
 </script>
 
