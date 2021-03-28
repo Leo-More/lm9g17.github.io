@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-
 <style>
     body{
         width:1060px;
@@ -240,7 +239,8 @@ var tF = ['low','high'].map(function(d){
 var iF = sentData.map(function(d){return [d.Industry,d.all];});
     
 // Make charts
-var hG = histoGram('#bar',iF), pC = pieChart('#pie',tF), leg = legend('#legend',tF);
+var hG = histoGram('#bar',iF), pC = pieChart('#pie',tF), leg = legend('#pie',tF);
+
 </script>
 </body>
 </html>
