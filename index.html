@@ -151,14 +151,7 @@
             leg.update = function(nD){
                 // update the data attached to the row elements.
                 var l = legend.select("tbody").selectAll("tr").data(nD);
-    
-                // update the frequencies.
-             //   l.select(".legendFreq").text(function(d){ return d3.format(",")(d.freq);});
-    
-                // update the percentage column.
-           //     l.select(".legendPerc").text(function(d){ return getLegend(d,nD);});        
             }
-    
             return leg;
         }
 
@@ -254,7 +247,7 @@
         var iF = fData.map(function(d){return [d.Industry,d.all];});
     
         // Make charts
-        var hG = histoGram(iF), pC = pieChart(tF), leg = legend(tF), key = key(iF);
+        var key = key(iF), hG = histoGram(iF), pC = pieChart(tF), leg = legend(tF);
     }
 </script>
 
