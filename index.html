@@ -56,7 +56,7 @@
 
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script>
-    function dashboard(fData){
+    function dashboard(fData, all){
         function segColor(c){ return {low:"#807dba",mid:"#e08214",high:"#41ab5d",all:'steelblue'}[c];}
         
         function histoGram(fD){
@@ -253,7 +253,7 @@
         }
         
         var tF = ['low','high'].map(function(d){
-            return {type:d, freq:d3.sum(fData.map(function(t){ return t.freq[d];}))}; 
+            return {type:d, freq:all.All[d]}; 
         });    
         var iF = fData.map(function(d){return [d.Industry,d.all];});
         var hG = histoGram(iF), key = key(iF), pC = pieChart(tF), leg = legend(tF);
@@ -277,10 +277,13 @@ var sentData=[
   {Industry:"Human Health and Social Work Activities",freq:{low:145,high:149},all:294},
   {Industry:"Arts, Entertainment and Recreation",freq:{low:415,high:303},all:718},
   {Industry:"Other Service Activities",freq:{low:108,high:29},all:137},
-  //{All:{low:10442,high:7181,all:17623}}
 ];
 
-dashboard(sentData);
+var sentDataAll=[
+    {All:{low:10442,high:7181,all:17623}}
+]
+
+dashboard(sentData, sentDataAll);
 </script>
 </body>
 </html>
