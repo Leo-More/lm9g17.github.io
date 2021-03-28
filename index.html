@@ -142,8 +142,7 @@
                 
             // create the columns for each segment.
             tr.append("td").text(function(d){ return d[0];});
-            tr.append("td").text(function(d){ return d[0].replace(/[a-z]/g,'')
-                    .replace(/,/g,'').replace(/s/g,'');});
+            tr.append("td").text(function(d){ return d[0].replace( /[a-z]|\,|\s/g,'');
     
             // Utility function to be used to update the legend.
             leg.update = function(nD){
