@@ -148,6 +148,10 @@
         function key(lD){
             var id = '#key', leg = {};
                 
+            var title = d3.select(id).append("text").attr("text-anchor", "middle")  
+                    .style("font-size", "16px") 
+                    .style("text-decoration", "underline")  
+                    .text("Total number of surveys sent out");
             // create table and row for the legend.
             var legend = d3.select(id).append("table").attr('class','legend');
             var tr = legend.append("tbody").selectAll("tr").data(lD).enter().append("tr");
@@ -155,7 +159,7 @@
             // create the columns for each segment.
             tr.append("td").text(function(d){ return d[0];}).style("font-size", "9px");
             tr.append("td").text(function(d){ return d[0].replace( /[a-z]|\,/g,'')
-                    .replace(/\,/g,'').replace(/\s/g,'').substring(0,2);}).style("font-size", "9px");
+                    .replace(/\,/g,'').replace(/\s/g,'').substring(0,2);}).style("font-size", "11px");
     
             // Utility function to be used to update the legend.
             leg.update = function(nD){
