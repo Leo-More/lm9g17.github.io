@@ -235,7 +235,10 @@
             tr.append("td").append("svg").attr("width", '16').attr("height", '16').append("rect")
                 .attr("width", '16').attr("height", '16')
                 .attr("fill",function(d){ return segColor(d.type); });
-            tr.append("td").text(function(d){ return d.type;});
+            tr.append("td").text(function(d){ 
+                if (d.type == 'low') { return "From 1 to 249"; }
+                else if (d.type == 'high') { return "250 and Above"; }
+            });
             tr.append("td").attr("class",'legendFreq')
                 .text(function(d){ return d3.format(",")(d.freq);});
             tr.append("td").attr("class",'legendPerc')
