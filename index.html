@@ -253,7 +253,7 @@
         }
         
         var tF = ['low','high'].map(function(d){
-            return {type:d, freq:fData.all}; 
+            return {type:d, freq:d3.sum(fData.map(function(t){ return t.all;}))}; 
         });    
         var iF = fData.map(function(d){return [d.Industry,d.all];});
         var hG = histoGram(iF), key = key(iF), pC = pieChart(tF), leg = legend(tF);
