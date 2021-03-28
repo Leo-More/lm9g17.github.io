@@ -48,9 +48,10 @@
     var barColor = 'steelblue';
     function segColor(c){ return {low:"#807dba",mid:"#e08214",high:"#41ab5d",all:'steelblue'}[c];}
 
+    var hG={}, pC={}, leg={};
+
     // function to handle histogram.
     function histoGram(id, fD){
-        var hG={}
         var hGDim = {t:60, r:0, b:30, l:0};
         hGDim.w = 700 - hGDim.l - hGDim.r, 
         hGDim.h = 300 - hGDim.t - hGDim.b;
@@ -129,8 +130,7 @@
         
     // function to handle pieChart.
     function pieChart(id, pD){
-        var pC ={},    
-        pieDim ={w:250, h:250};
+        var pieDim ={w:250, h:250};
         pieDim.r = Math.min(pieDim.w, pieDim.h) / 2;
                 
         // create svg for pie chart.
@@ -177,8 +177,6 @@
         
     // function to handle legend.
     function legend(id, lD){
-        var leg = {};
-            
         // create table and row for the legend.
         var legend = d3.select(id).append("table").attr('class','legend');
         var tr = legend.append("tbody").selectAll("tr").data(lD).enter().append("tr");
@@ -236,8 +234,8 @@
     });    
     var iF = sentData.map(function(d){return [d.Industry,d.all];});
     
-// Make charts
-var hG = histoGram('#bar',iF), pC = pieChart('#pie',tF), leg = legend('#pie',tF);
+    // Make charts
+    var hG = histoGram('#bar',iF), pC = pieChart('#pie',tF), leg = legend('#pie',tF);
 </script>
 </body>
 </html>
