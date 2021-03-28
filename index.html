@@ -45,7 +45,7 @@
 <script>
     function dashboard(id, fData){
         var barColor = 'steelblue';
-        function segColor(c){ return {low:"#807dba",mid:"#e08214",high:"#41ab5d",all:'steelblue'}[c];}
+        function segColor(c){ return {low:"#807dba",high:"#e08214",all:"#41ab5d",all:'steelblue'}[c];}
         
         // function to handle histogram.
         function histoGram(fD){
@@ -63,12 +63,12 @@
     
             // create function for x-axis mapping.
             var x = d3.scale.ordinal().rangeRoundBands([0, hGDim.w], 0.1)
-                .domain(fD.map(function(d) { return d[0]; }));
+                    .domain(fD.map(function(d) { return d[0]; }));
     
             // Add x-axis to the histogram svg.
             hGsvg.append("g").attr("class", "x axis")
-                .attr("transform", "translate(0," + hGDim.h + ")")
-                .call(d3.svg.axis().scale(x).orient("bottom"));
+                    .attr("transform", "translate(0," + hGDim.h + ")")
+                    .call(d3.svg.axis().scale(x).orient("bottom"));
     
             // Create function for y-axis map.
             var y = d3.scale.linear().range([hGDim.h, 0])
@@ -193,12 +193,9 @@
             tr.append("td").append("svg").attr("width", '16').attr("height", '16').append("rect")
                 .attr("width", '16').attr("height", '16')
                 .attr("fill",function(d){ return segColor(d.type); });
-
             tr.append("td").text(function(d){ return d.type;});
-    
             tr.append("td").attr("class",'legendFreq')
                 .text(function(d){ return d3.format(",")(d.freq);});
-    
             tr.append("td").attr("class",'legendPerc')
                 .text(function(d){ return getLegend(d,lD);});
     
@@ -221,39 +218,35 @@
             return leg;
         }
         
-        // calculate total frequency by segment for all state.
-        var tF = ['low','mid','high'].map(function(d){ 
-            return {type:d, freq:d3.sum(fData.map(function(t){ return t.freq[d];}))}; 
-        });    
-        
-        // calculate total frequency by state for all segment.
-        var sF = fData.map(function(d){return [d.State,d.total];});
+        var tF = ['low','high','all'].map(function(d){return {type:d, freq:d.freq.all};});    
+        var iF = fData.map(function(d){return [d.Industry,d.freq.all];});
     
         // Make charts
-        var hG = histoGram(sF), pC = pieChart(tF), leg= legend(tF);
+        var hG = histoGram(iF);//, pC = pieChart(tF), leg= legend(tF);
     }
     </script>
 
 <script>
 var sentData=[
-  {Industry:"MQ",freq:{low:15,mid:13,high:28}},
-  {Industry:"M",freq:{low:1785,mid:1370,high:3155}},
-  {Industry:"WS",freq:{low:130,mid:71,high:201}},
-  {Industry:"C",freq:{low:722,mid:312,high:1034}},
-  {Industry:"WM",freq:{low:1819,mid:1180,high:2999}},
-  {Industry:"AF",freq:{low:975,mid:659,high:1634}},
-  {Industry:"TS",freq:{low:528,mid:335,high:863}},
-  {Industry:"IC",freq:{low:794,mid:422,high:1216}},
-  {Industry:"RA",freq:{low:112,mid:88,high:200}},
-  {Industry:"PA",freq:{low:1303,mid:720,high:2023}},
-  {Industry:"AA",freq:{low:1287,mid:1072,high:2359}},
-  {Industry:"E",freq:{low:303,mid:457,high:760}},
-  {Industry:"HA",freq:{low:145,mid:149,high:294}},
-  {Industry:"AR",freq:{low:415,mid:303,high:718}},
-  {Industry:"O",freq:{low:108,mid:29,high:137}}
+  {Industry:"MQ",freq:{low:15,high:13,all:28}},
+  {Industry:"M",freq:{low:1785,high:1370,all:3155}},
+  {Industry:"WS",freq:{low:130,high:71,all:201}},
+  {Industry:"C",freq:{low:722,high:312,all:1034}},
+  {Industry:"WM",freq:{low:1819,high:1180,all:2999}},
+  {Industry:"AF",freq:{low:975,high:659,all:1634}},
+  {Industry:"TS",freq:{low:528,high:335,all:863}},
+  {Industry:"IC",freq:{low:794,high:422,all:1216}},
+  {Industry:"RA",freq:{low:112,high:88,all:200}},
+  {Industry:"PA",freq:{low:1303,high:720,all:2023}},
+  {Industry:"AA",freq:{low:1287,high:1072,all:2359}},
+  {Industry:"E",freq:{low:303,high:457,all:760}},
+  {Industry:"HA",freq:{low:145,high:149,all:294}},
+  {Industry:"AR",freq:{low:415,high:303,all:718}},
+  {Industry:"O",freq:{low:108,high:29,all:137}},
+  {Industry:"ALL",freq:{low:10442,high:7181,all:17623}}
 ];
 
-dashboard('#dashboard',freqData);
+dashboard('#dashboard',sentData);
 </script>
 </body>
 </html>
