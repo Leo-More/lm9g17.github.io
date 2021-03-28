@@ -142,9 +142,9 @@
             var tr = legend.append("tbody").selectAll("tr").data(lD).enter().append("tr");
                 
             // create the columns for each segment.
-            tr.append("td").text(function(d){ return d[0];}).style("font-size", "34px");
+            tr.append("td").text(function(d){ return d[0];}).style("font-size", "9px");
             tr.append("td").text(function(d){ return d[0].replace( /[a-z]|\,/g,'')
-                    .replace(/\,/g,'').replace(/\s/g,'').substring(0,2);});
+                    .replace(/\,/g,'').replace(/\s/g,'').substring(0,2);}).style("font-size", "9px");
     
             // Utility function to be used to update the legend.
             leg.update = function(nD){
