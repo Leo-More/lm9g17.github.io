@@ -57,7 +57,7 @@
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script>
     function dashboard(fData){
-        function segColor(c){ return {'[From 1 to 249]':"#807dba",mid:"#e08214",high:"#41ab5d",all:'steelblue'}[c];}
+        function segColor(c){ return {low:"#807dba",mid:"#e08214",high:"#41ab5d",all:'steelblue'}[c];}
         
         function histoGram(fD){
             var id = '#bar', hG={}, hGDim = {t:60, r:0, b:30, l:0};
@@ -260,7 +260,7 @@
             return leg;
         }
         
-        var tF = [''[From 1 to 249]'','high'].map(function(d){
+        var tF = ['low','high'].map(function(d){
             return {type:d, freq:d3.sum(fData.map(function(t){ return t.freq[d];}))}; 
         });    
         var iF = fData.map(function(d){return [d.Industry,d.all];});
@@ -270,22 +270,22 @@
 
 <script>
 var sentData=[
-  {Industry:"Mining and Quarrying",freq:{'[From 1 to 249]':15,high:13},all:28},
-  {Industry:"Manufacturing",freq:{'[From 1 to 249]':1785,high:1370},all:3155},
-  {Industry:"Water Supply, Sewerage, Waste Management and Remediation Activities",freq:{'[From 1 to 249]':130,high:71},all:201},
-  {Industry:"Construction",freq:{'[From 1 to 249]':722,high:312},all:1034},
-  {Industry:"Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",freq:{'[From 1 to 249]':1819,high:1180},all:2999},
-  {Industry:"Accommodation and Food Service Activities",freq:{'[From 1 to 249]':975,high:659},all:1634},
-  {Industry:"Transportation and Storage",freq:{'[From 1 to 249]':528,high:335},all:863},
-  {Industry:"Information and Communication",freq:{'[From 1 to 249]':794,high:422},all:1216},
-  {Industry:"Real Estate Activities",freq:{'[From 1 to 249]':112,high:88},all:200},
-  {Industry:"Professional, Scientific and Technical Activities",freq:{'[From 1 to 249]':1303,high:720},all:2023},
-  {Industry:"Administrative and Support Service Activities",freq:{'[From 1 to 249]':1287,high:1072},all:2359},
-  {Industry:"Education",freq:{'[From 1 to 249]':303,high:457},all:760},
-  {Industry:"Human Health and Social Work Activities",freq:{'[From 1 to 249]':145,high:149},all:294},
-  {Industry:"Arts, Entertainment and Recreation",freq:{'[From 1 to 249]':415,high:303},all:718},
-  {Industry:"Other Service Activities",freq:{'[From 1 to 249]':108,high:29},all:137},
-  //{Industry:"ALL",freq:{'[From 1 to 249]':10442,high:7181},all:17623}
+  {Industry:"Mining and Quarrying",freq:{low:15,high:13},all:28},
+  {Industry:"Manufacturing",freq:{low:1785,high:1370},all:3155},
+  {Industry:"Water Supply, Sewerage, Waste Management and Remediation Activities",freq:{low:130,high:71},all:201},
+  {Industry:"Construction",freq:{low:722,high:312},all:1034},
+  {Industry:"Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",freq:{low:1819,high:1180},all:2999},
+  {Industry:"Accommodation and Food Service Activities",freq:{low:975,high:659},all:1634},
+  {Industry:"Transportation and Storage",freq:{low:528,high:335},all:863},
+  {Industry:"Information and Communication",freq:{low:794,high:422},all:1216},
+  {Industry:"Real Estate Activities",freq:{low:112,high:88},all:200},
+  {Industry:"Professional, Scientific and Technical Activities",freq:{low:1303,high:720},all:2023},
+  {Industry:"Administrative and Support Service Activities",freq:{low:1287,high:1072},all:2359},
+  {Industry:"Education",freq:{low:303,high:457},all:760},
+  {Industry:"Human Health and Social Work Activities",freq:{low:145,high:149},all:294},
+  {Industry:"Arts, Entertainment and Recreation",freq:{low:415,high:303},all:718},
+  {Industry:"Other Service Activities",freq:{low:108,high:29},all:137},
+  //{Industry:"ALL",freq:{low:10442,high:7181},all:17623}
 ];
 
 dashboard(sentData);
