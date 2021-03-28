@@ -302,7 +302,10 @@ var responseData=[
 
 function filter() {
   var x = document.getElementById("filter").value;
-  document.getElementById('choose').innerHTML = "";
+  document.getElementById('bar').innerHTML = "";
+  document.getElementById('key').innerHTML = "";
+  document.getElementById('pie').innerHTML = "";
+  document.getElementById('legend').innerHTML = "";
   if (x == 'sent') {dashboard(sentData);}
   else if (x == 'response') {dashboard(responseData);}
 }
