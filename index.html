@@ -71,12 +71,14 @@
                     .domain(fD.map(function(d) { return d[0]; }));
     
             // Add x-axis to the histogram svg.
-            hGsvg.append("g").attr("class", "x axis")
-                    .attr("transform", "translate(0," + hGDim.h + ")")
-                    .call(d3.svg.axis().scale(x).orient("bottom"));
+            hGsvg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + hGDim.h + ")")
+                .call(d3.svg.axis().scale(x).orient("bottom"));
+            // Title
             hGsvg.append("text")
-                .attr("x", (width / 2))             
-                .attr("y", 0 - (margin.top / 2))
+                //.attr("x", (width / 2))             
+                //.attr("y", 0 - (margin.top / 2))
                 .attr("text-anchor", "middle")  
                 .style("font-size", "16px") 
                 .style("text-decoration", "underline")  
