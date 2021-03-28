@@ -174,7 +174,7 @@
                     
             // create svg for pie chart.
             var piesvg = d3.select(id).append("svg")
-                .attr("width", pieDim.w).attr("height", pieDim.h+50).append("g")
+                .attr("width", pieDim.w).attr("height", pieDim.h).append("g")
                 .attr("transform", "translate("+pieDim.w/2+","+pieDim.h/2+")");
             
             // create function to draw the arcs of the pie slices.
@@ -183,14 +183,6 @@
             // create a function to compute the pie slice angles.
             var pie = d3.layout.pie().sort(null).value(function(d) { return d.freq; });
     
-            // Title
-            piesvg.append("text").attr("x", (0))   
-                    .attr("y", 5-pieDim.r)
-                    .attr("text-anchor", "middle")  
-                    .style("font-size", "16px") 
-                    .style("text-decoration", "underline")  
-                    .text("Total number of surveys sent out");
-
             // Draw the pie slices.
             piesvg.selectAll("path").data(pie(pD)).enter().append("path").attr("d", arc)
                 .each(function(d) { this._current = d; })
@@ -229,6 +221,12 @@
                 
             // create table and row for the legend.
             var legend = d3.select(id).append("table").attr('class','legend');
+            var title = legend.append("text").attr("x", (0))   
+                    .attr("y", 0)
+                    .attr("text-anchor", "middle")  
+                    .style("font-size", "16px") 
+                    .style("text-decoration", "underline")  
+                    .text("Total number of surveys sent out");
             var tr = legend.append("tbody").selectAll("tr").data(lD).enter().append("tr");
                 
             // create the columns for each segment.
