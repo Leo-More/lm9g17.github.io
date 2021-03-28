@@ -60,7 +60,7 @@
             hGDim.w = 700 - hGDim.l - hGDim.r, 
             hGDim.h = 300 - hGDim.t - hGDim.b;
                 
-            //create svg for histogram.
+            // create svg for histogram.
             var hGsvg = d3.select(id).append("svg")
                 .attr("width", hGDim.w + hGDim.l + hGDim.r)
                 .attr("height", hGDim.h + hGDim.t + hGDim.b).append("g")
@@ -74,6 +74,13 @@
             hGsvg.append("g").attr("class", "x axis")
                     .attr("transform", "translate(0," + hGDim.h + ")")
                     .call(d3.svg.axis().scale(x).orient("bottom"));
+            hGsvg.append("text")
+                .attr("x", (width / 2))             
+                .attr("y", 0 - (margin.top / 2))
+                .attr("text-anchor", "middle")  
+                .style("font-size", "16px") 
+                .style("text-decoration", "underline")  
+                .text("Value vs Date Graph");
     
             // Create function for y-axis map.
             var y = d3.scale.linear().range([hGDim.h, 0])
