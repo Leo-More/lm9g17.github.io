@@ -174,7 +174,7 @@
                     
             // create svg for pie chart.
             var piesvg = d3.select(id).append("svg")
-                .attr("width", pieDim.w).attr("height", pieDim.h+50).append("g")
+                .attr("width", pieDim.w).attr("height", pieDim.h+80).append("g")
                 .attr("transform", "translate("+pieDim.w/2+","+pieDim.h/2+")");
             
             // create function to draw the arcs of the pie slices.
@@ -191,7 +191,7 @@
 
             // Title
             piesvg.append("text").attr("x", (0))   
-                    .attr("y", 8-pieDim.r)
+                    .attr("y", 5-pieDim.r)
                     .attr("text-anchor", "middle")  
                     .style("font-size", "16px") 
                     .style("text-decoration", "underline")  
