@@ -97,13 +97,13 @@
         function mouseover(d){
             var indus = fData.filter(function(i){ return i.Industry == d[0];})[0];
             var nD = d3.keys(indus.freq).map(function(i){ return {type:i, freq:indus.freq[i]};});
-            pC.update(nD);
-            leg.update(nD);
+            //pC.update(nD);
+            //leg.update(nD);
         }
             
         function mouseout(d){ 
-            pC.update(tF);
-            leg.update(tF);
+            //pC.update(tF);
+            //leg.update(tF);
         }
             
         hG.update = function(nD, color){
@@ -239,7 +239,7 @@ var tF = ['low','high'].map(function(d){
 var iF = fData.map(function(d){return [d.Industry,d.all];});
     
 // Make charts
-var hG = histoGram('#bar',iF), pC = pieChart('#pie',tF), leg = legend('#legend',tF);
+var hG = histoGram('#bar',iF);//, pC = pieChart('#pie',tF), leg = legend('#legend',tF);
 </script>
 </body>
 </html>
