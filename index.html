@@ -77,8 +77,8 @@
                 .call(d3.svg.axis().scale(x).orient("bottom"));
             // Title
             hGsvg.append("text")
-                //.attr("x", (width / 2))             
-                //.attr("y", 0 - (margin.top / 2))
+                .attr("x", (hGDim.w / 2))             
+                .attr("y", 0 - (hGDim.t / 2))
                 .attr("text-anchor", "middle")  
                 .style("font-size", "16px") 
                 .style("text-decoration", "underline")  
