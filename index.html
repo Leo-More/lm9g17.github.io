@@ -39,20 +39,22 @@
 
 <body>
 <div id='dashboard'>
-    <h3>Total number of surveys sent out, sample for the BICS survey broken down by industry</h3>
+    <h3>Total number of surveys sent out</h3>
     <div id='bar'></div>
     <div id='pie'></div>
     <div id='legend'></div>
 </div>
+</div>
 
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script>
-    function dashboard(id, fData){
+    function dashboard(fData){
         var barColor = 'steelblue';
         function segColor(c){ return {low:"#807dba",mid:"#e08214",high:"#41ab5d",all:'steelblue'}[c];}
         
         // function to handle histogram.
         function histoGram(fD){
+            var id = '#bar'; 
             var hG={}
             var hGDim = {t:60, r:0, b:30, l:0};
             hGDim.w = 700 - hGDim.l - hGDim.r, 
@@ -132,6 +134,7 @@
         
         // function to handle pieChart.
         function pieChart(pD){
+            var id = '#pie';
             var pC ={},    
             pieDim ={w:250, h:250};
             pieDim.r = Math.min(pieDim.w, pieDim.h) / 2;
@@ -180,6 +183,7 @@
         
         // function to handle legend.
         function legend(lD){
+            var id = '#pie';
             var leg = {};
                 
             // create table and row for the legend.
@@ -245,7 +249,7 @@ var sentData=[
   {Industry:"ALL",freq:{low:10442,high:7181},all:17623}
 ];
 
-dashboard('#dashboard',sentData);
+dashboard(sentData);
 </script>
 </body>
 </html>
