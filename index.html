@@ -87,9 +87,9 @@
                     .call(d3.svg.axis().scale(x).orient("bottom"));
 
             // Title
-            //var filter = document.getElementById("filter").value;
+            var filter = document.getElementById("filter").value;
             var temp = "Total number of surveys sent out";
-            //if (filter=='response') {temp = "Total number of surveys responses";}
+            if (filter=='response') {temp = "Total number of surveys responses";}
             hGsvg.append("text").attr("x", (hGDim.w / 2))   
                     .attr("y", 0 - (hGDim.t / 2))
                     .attr("text-anchor", "middle")  
