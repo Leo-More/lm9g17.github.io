@@ -302,6 +302,7 @@ var responseData=[
 
 function filter() {
   var x = document.getElementById("filter").value;
+  document.getElementById('choose').innerHTML = "";
   if (x == 'sent') {dashboard(sentData);}
   else if (x == 'response') {dashboard(responseData);}
 }
