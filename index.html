@@ -142,7 +142,7 @@
             var tr = legend.append("tbody").selectAll("tr").data(lD).enter().append("tr");
                 
             // create the columns for each segment.
-            tr.append("td").text(function(d){ return d[0];});
+            tr.append("td").text(function(d){ return d[0];}).style("font-size", "34px");
             tr.append("td").text(function(d){ return d[0].replace( /[a-z]|\,/g,'')
                     .replace(/\,/g,'').replace(/\s/g,'').substring(0,2);});
     
