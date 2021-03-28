@@ -61,7 +61,7 @@
     
             // create function for x-axis mapping.
             var x = d3.scale.ordinal().rangeRoundBands([0, hGDim.w], 0.1)
-                    .domain(fD.map(function(d) { return d[0]; }));
+                    .domain(fD.map(function(d) { return d[0].replace('/\b[a-z]{2,}\b/g',''); }));
     
             // Add x-axis to the histogram svg.
             hGsvg.append("g").attr("class", "x axis")
@@ -141,7 +141,7 @@
                 
             // create the columns for each segment.
             tr.append("td").text(function(d){ return d[0];});
-            tr.append("td").text(function(d){ return d[0].replace('/\b[a-z]{2,}\b/g','');});
+            tr.append("td").text(function(d){ return d[0].replace('/[a-z]/g','');});
     
             // Utility function to be used to update the legend.
             leg.update = function(nD){
