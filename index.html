@@ -240,23 +240,20 @@
             leg.update = function(nD){
                 // update the data attached to the row elements.
                 var l = legend.select("tbody").selectAll("tr").data(nD);
-    
-                // update the frequencies.
+                
                 l.select(".legendFreq").text(function(d){ return d3.format(",")(d.freq);});
-    
-                // update the percentage column.
                 l.select(".legendPerc").text(function(d){ return getLegend(d,nD);});        
             }
             
             function getLegend(d,aD){ // Utility function to compute percentage.
-                return d3.format("%")(d.freq/d3.sum(aD.map(function(v){ return v.freq+1; })));
+                return d3.format("%")(d.freq/d3.sum(aD.map(function(v){ return v.freq; })));
             }
     
             return leg;
         }
         
         var tF = ['low','high'].map(function(d){
-            return {type:d, freq:d3.sum(fData.map(function(t){ return t.freq[d];}))}; 
+            return {type:d, freq:d3.sum(fData.map(function(t){ return t.freq[d]+1;}))}; 
         });    
         var iF = fData.map(function(d){return [d.Industry,d.all];});
         var hG = histoGram(iF), key = key(iF), pC = pieChart(tF), leg = legend(tF);
