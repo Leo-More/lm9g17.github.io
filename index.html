@@ -142,7 +142,7 @@
             // create the columns for each segment.
             tr.append("td").append("svg").attr("width", '16').attr("height", '16').append("rect")
                 .attr("width", '16').attr("height", '16')
-            tr.append("td").text(function(d){ return d.type;});
+            tr.append("td").text(function(d){ return d[0];});
             tr.append("td").text(function(d){ return d.type;});
     
             // Utility function to be used to update the legend.
