@@ -38,8 +38,12 @@
 </style>
 
 <body>
-<div id='dashboard'>
-</div>
+<div id='title'></div>
+<div id='bar'></div>
+<div id='pie'></div>
+<div id='legend'></div>
+<div id='dashboard'></div>
+
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script>
     function dashboard(id, fData){
@@ -96,12 +100,12 @@
                 var indus = fData.filter(function(i){ return i.Industry == d[0];})[0];
                 var nD = d3.keys(indus.freq).map(function(i){ return {type:i, freq:indus.freq[i]};});
                 pC.update(nD);
-                //leg.update(nD);
+                leg.update(nD);
             }
             
             function mouseout(d){ 
                 pC.update(tF);
-                //leg.update(tF);
+                leg.update(tF);
             }
             
             hG.update = function(nD, color){
