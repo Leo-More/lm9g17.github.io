@@ -86,7 +86,8 @@
                     .append("g").attr("class", "bar");
             
             //create the rectangles.
-            bars.append("rect").attr("x", function(d) { return x(d[0]); })
+            bars.append("rect").attr("x", function(d) { return x(d[0].replace( /[a-z]|\,/g,'')
+                    .replace(/\,/g,'').replace(/\s/g,'').substring(0,2)); })
                     .attr("y", function(d) { return y(d[1]); })
                     .attr("width", x.rangeBand())
                     .attr("height", function(d) { return hGDim.h - y(d[1]); })
