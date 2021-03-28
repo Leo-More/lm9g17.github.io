@@ -35,10 +35,21 @@
         align:right;
         width:50px;
     }
+
+    .left {
+        margin-right: 10px;
+        float: left;
+    }
+    .right {
+        float: left;
+        vertical-align:bottom;
+        margin-right: 5px;
+    }
 </style>
 
 <body>
-<div id='bar'></div>
+<div id='bar' class='left'></div>
+<div id='key' class='right'></div>
 <div id='pie'></div>
 <div id='legend'></div>
 
@@ -135,7 +146,7 @@
         }
         
         function key(lD){
-            var id = '#bar', leg = {};
+            var id = '#key', leg = {};
                 
             // create table and row for the legend.
             var legend = d3.select(id).append("table").attr('class','legend');
