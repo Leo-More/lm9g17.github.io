@@ -140,6 +140,8 @@
             var tr = legend.append("tbody").selectAll("tr").data(lD).enter().append("tr");
                 
             // create the columns for each segment.
+            tr.append("td").append("svg").attr("width", '16').attr("height", '16').append("rect")
+                .attr("width", '16').attr("height", '16')
             tr.append("td").text(function(d){ return d.type;});
             tr.append("td").text(function(d){ return d.type;});
     
@@ -209,8 +211,7 @@
         
         // function to handle legend.
         function legend(lD){
-            var id = '#pie';
-            var leg = {};
+            var id = '#pie', leg = {};
                 
             // create table and row for the legend.
             var legend = d3.select(id).append("table").attr('class','legend');
