@@ -104,7 +104,6 @@
                 //leg.update(tF);
             }
             /*
-            // create function to update the bars. This will be used by pie-chart.
             hG.update = function(nD, color){
                 // update the domain of the y-axis map to reflect change in frequencies.
                 y.domain([0, d3.max(nD, function(d) { return d[1]; })]);
@@ -163,14 +162,14 @@
             function mouseout(d){
                // hG.update(fData.map(function(v){
                //     return [v.State,v.total];}), barColor);
-            }/*
-            // Animating the pie-slice requiring a custom function which specifies
-            // how the intermediate paths should be drawn.
+            }
+
+            // Animating the pie-slice
             function arcTween(a) {
                 var i = d3.interpolate(this._current, a);
                 this._current = i(0);
                 return function(t) { return arc(i(t));    };
-            }  */  
+            } 
             return pC;
         }
         /*
