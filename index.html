@@ -83,8 +83,8 @@
                 .attr("width", x.rangeBand())
                 .attr("height", function(d) { return hGDim.h - y(d[1]); })
                 .attr('fill',barColor)
-                .on("mouseover",mouseover)// mouseover is defined below.
-                .on("mouseout",mouseout);// mouseout is defined below.
+                .on("mouseover",mouseover)
+                .on("mouseout",mouseout);
                 
             //Create the frequency labels above the rectangles.
             bars.append("text").text(function(d){ return d3.format(",")(d[1])})
@@ -93,8 +93,8 @@
                 .attr("text-anchor", "middle");
             
             function mouseover(d){
-                var indus = fData.filter(function(i){ return i.Industry == d[0];})[0],
-                    nD = d3.keys(indus.freq).map(function(i){ return {type:i, freq:indus.freq[i]};});
+                var indus = fData.filter(function(i){ return i.Industry == d[0];})[0];
+                var nD = d3.keys(indus.freq).map(function(i){ return {type:i, freq:indus.freq[i]};});
                 pC.update(nD);
                 //leg.update(nD);
             }
@@ -172,7 +172,7 @@
             } 
             return pC;
         }
-        /*
+        
         // function to handle legend.
         function legend(lD){
             var leg = {};
@@ -209,14 +209,14 @@
     
             return leg;
         }
-        */
+        
         var tF = ['low','high'].map(function(d){
             return {type:d, freq:d3.sum(fData.map(function(t){ return t.freq[d];}))}; 
         });    
         var iF = fData.map(function(d){return [d.Industry,d.all];});
     
         // Make charts
-        var hG = histoGram(iF), pC = pieChart(tF);//, leg= legend(tF);
+        var hG = histoGram(iF), pC = pieChart(tF), leg= legend(tF);
     }
     </script>
 
