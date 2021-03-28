@@ -156,12 +156,12 @@
             
             function mouseover(d){
                 hG.update(fData.map(function(v){ 
-                    return [v.State,v.freq[d.data.type]];}),segColor(d.data.type));
+                    return [v.Industry,v.freq[d.data.type]];}),segColor(d.data.type));
             }
             
             function mouseout(d){
                 hG.update(fData.map(function(v){
-                    return [v.State,v.total];}), barColor);
+                    return [v.Industry,v.all];}), barColor);
             }
 
             // Animating the pie-slice
