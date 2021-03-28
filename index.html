@@ -221,10 +221,10 @@
                 
             // create table and row for the legend.
             var legend = d3.select(id).append("table").attr('class','legend');
-            var title = legend.append("text")
-                    .style("font-size", "16px") 
-                    .style("text-decoration", "underline")  
-                    .text("Total number of surveys sent out");
+            //var title = legend.append("text")
+            //        .style("font-size", "16px") 
+            //        .style("text-decoration", "underline")  
+            //        .text("Total number of surveys sent out");
             var tr = legend.append("tbody").selectAll("tr").data(lD).enter().append("tr");
                 
             // create the columns for each segment.
