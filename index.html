@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 
+<!-- CSS -->
 <style>
     body{
         width:1060px;
@@ -38,46 +39,200 @@
     }
 
     .left {
-        margin-right: 10px;
         float: left;
     }
     .right {
         float: left;
-        vertical-align:bottom;
-        margin-right: 5px;
     }
 </style>
 
-<body>
-<div id="choose">
-    <p>Choose</p>
-    <select onchange="filter()" id="filter">
-        <option value="sent">Sent</option>
-        <option value="response">Responses</option>
-    </select>
-</div>
-<div id='bar' class='left'></div>
-<div id='key' class='right'></div>
-<div id='pie' class='left'><h3>Total not including other industries with small numbers</h3></div>
-<div id='legend' class='right'></div>
+<!-- Data -->
+<script>
+    var sentData=[
+      {Industry:"Mining and Quarrying",freq:{low:15,high:13},all:28},
+      {Industry:"Manufacturing",freq:{low:1785,high:1370},all:3155},
+      {Industry:"Water Supply, Sewerage, Waste Management and Remediation Activities",freq:{low:130,high:71},all:201},
+      {Industry:"Construction",freq:{low:722,high:312},all:1034},
+      {Industry:"Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",freq:{low:1819,high:1180},all:2999},
+      {Industry:"Accommodation and Food Service Activities",freq:{low:975,high:659},all:1634},
+      {Industry:"Transportation and Storage",freq:{low:528,high:335},all:863},
+      {Industry:"Information and Communication",freq:{low:794,high:422},all:1216},
+      {Industry:"Real Estate Activities",freq:{low:112,high:88},all:200},
+      {Industry:"Professional, Scientific and Technical Activities",freq:{low:1303,high:720},all:2023},
+      {Industry:"Administrative and Support Service Activities",freq:{low:1287,high:1072},all:2359},
+      {Industry:"Education",freq:{low:303,high:457},all:760},
+      {Industry:"Human Health and Social Work Activities",freq:{low:145,high:149},all:294},
+      {Industry:"Arts, Entertainment and Recreation",freq:{low:415,high:303},all:718},
+      {Industry:"Other Service Activities",freq:{low:108,high:29},all:137},
+    ];
+    
+    var sentAll=[
+        {freq:{low:10442,high:7181},all:17623}
+    ]
+    
+    var responseData=[
+      {Industry:"Manufacturing",freq:{low:648,high:449},all:1097},
+      {Industry:"Water Supply, Sewerage, Waste Management and Remediation Activities",freq:{low:50,high:20},all:70},
+      {Industry:"Construction",freq:{low:208,high:76},all:284},
+      {Industry:"Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",freq:{low:686,high:344},all:1030},
+      {Industry:"Accommodation and Food Service Activities",freq:{low:321,high:195},all:516},
+      {Industry:"Transportation and Storage",freq:{low:193,high:89},all:282},
+      {Industry:"Information and Communication",freq:{low:297,high:121},all:418},
+      {Industry:"Professional, Scientific and Technical Activities",freq:{low:468,high:265},all:733},
+      {Industry:"Administrative and Support Service Activities",freq:{low:453,high:361},all:814},
+      {Industry:"Education",freq:{low:127,high:191},all:318},
+      {Industry:"Human Health and Social Work Activities",freq:{low:85,high:59},all:144},
+      {Industry:"Arts, Entertainment and Recreation",freq:{low:180,high:98},all:278},
+    ];
+    
+    var responseAll=[
+        {freq:{low:3809,high:2305},all:6114}
+    ]
+    
+    var responsePercent=[
+        {Industry:"Manufacturing",freq:{low:36.3,high:32.8,all:34.8}},
+        {Industry:"Water Supply, Sewerage, Waste Management and Remediation Activities",freq:{low:38.5,high:28.2,all:34.8}},
+        {Industry:"Construction",freq:{low:28.8,high:24.4,all:27.5}},
+        {Industry:"Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",freq:{low:37.7,high:29.2,all:34.3}},
+        {Industry:"Accommodation and Food Service Activities",freq:{low:32.9,high:29.6,all:31.6}},
+        {Industry:"Transportation and Storage",freq:{low:36.6,high:26.6,all:32.7}},
+        {Industry:"Information and Communication",freq:{low:37.4,high:28.7,all:34.4}},
+        {Industry:"Professional, Scientific and Technical Activities",freq:{low:35.9,high:36.8,all:36.2}},
+        {Industry:"Administrative and Support Service Activities",freq:{low:35.2,high:33.7,all:34.5}},
+        {Industry:"Education",freq:{low:41.9,high:41.8,all:41.8}},
+        {Industry:"Human Health and Social Work Activities",freq:{low:58.6,high:39.6,all:49.0}},
+        {Industry:"Arts, Entertainment and Recreation",freq:{low:43.4,high:32.3,all:38.7}},
+    ];
 
+    var tradingIn=[
+        {Industry:"Manufacturing",freq:{low:79.0,high:0.4,all:20.6}},
+        {Industry:"Water Supply, Sewerage, Waste Management and Remediation Activities",freq:{low:90.0,high:0.0,all:10.0}},
+        {Industry:"Construction",freq:{low:73.2,high:0.7,all:26.1}},
+        {Industry:"Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",freq:{low:75.2,high:0.5,all:24.3}},
+        {Industry:"Accommodation and Food Service Activities",freq:{low:18.2,high:1.2,all:80.6}},
+        {Industry:"Transportation and Storage",freq:{low:91.5,high:0.0,all:8.5}},
+        {Industry:"Information and Communication",freq:{low:95.0,high:0.5,all:4.5}},
+        {Industry:"Professional, Scientific and Technical Activities",freq:{low:96.7,high:0.3,all:3.0}},
+        {Industry:"Administrative and Support Service Activities",freq:{low:91.5,high:0.4,all:8.1}},
+        {Industry:"Education",freq:{low:86.8,high:0.6,all:12.6}},
+        {Industry:"Human Health and Social Work Activities",freq:{low:93.8,high:1.4,all:4.9}},
+        {Industry:"Arts, Entertainment and Recreation",freq:{low:20.5,high:0.0,all:79.5}},
+        {Industry:"All Industries", freq:{low:76.7,high:0.5,all:22.8}}
+    ];
+
+    var tradingWf=[
+        {WF:"From 1 to 249",freq:{low:74.8,high:0.5,all:24.7}},
+        {WF:"250 and Above",freq:{low:79.8,high:0.5,all:19.7}},
+        {WF:"All Size Bands",freq:{low:76.7,high:0.5,all:22.8}}
+    ]
+
+    var tradingCount=[
+        {Country:"England",freq:{low:77.8,high:0.4,all:21.8}},
+        {Country:"Wales",freq:{low:76.2,high:1.1,all:22.7}},
+        {Country:"Scotland",freq:{low:77.6,high:0.7,all:21.7}},
+        {Country:"Northern Ireland",freq:{low:72.8,high:0.0,all:27.2}},
+        {Country:"UK",freq:{low:76.7,high:0.5,all:22.8}}
+    ]
+</script>    
+
+<!-- Helper Functions -->
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script>
-    function dashboard(fData, title){
-        function segColor(c){ return {low:"#807dba",mid:"#e08214",high:"#41ab5d",all:'steelblue'}[c];}
-        
+    function segColor(c){
+        return {low:"#807dba",mid:"#e08214",high:"#41ab5d",all:'steelblue'}[c];
+    }
+
+    function clear() {
+        document.getElementById('bar').innerHTML = "";
+        document.getElementById('key').innerHTML = "";
+        document.getElementById('pie').innerHTML = "";
+        document.getElementById('legend').innerHTML = "";
+        document.getElementById('hidden').style.display = "none";
+    }
+</script>
+
+<!-- Body -->
+<body>
+<div id="choose">
+    <p vertical-align="bottom">Select filter for visualisation:</p>
+    <select vertical-align="top" onchange="filter()" id="filter">
+        <option value="sent">Sent</option>
+        <option value="response">Responses</option>
+        <option value="trading">Trading Status</option>
+    </select>
+</div>
+<div>
+    <div id='bar' class='left'></div>
+    <div id='key' class='right'></div>
+    <div id='pie' class='left'></div>
+    <div id='legend' class='right'></div>
+    <div id='pPie' class='left'></div>
+</div>
+<div id='hidden'>
+    <div>
+    <div>
+        <p vertical-align="bottom">Select industry:</p>
+        <select vertical-align="top" onchange="industry()" id="inFilter">
+            <option value="in13">All Industries</option>
+            <option value="in1">Manufacturing</option>
+            <option value="in2">Water Supply, Sewerage, Waste Management and Remediation Activities</option>
+            <option value="in3">Construction</option>
+            <option value="in4">Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles</option>
+            <option value="in5">Accommodation and Food Service Activities</option>
+            <option value="in6">Transportation and Storage</option>
+            <option value="in7">Information and Communication</option>
+            <option value="in8">Professional, Scientific and Technical Activities</option>
+            <option value="in9">Administrative and Support Service Activities</option>
+            <option value="in10">Education</option>
+            <option value="in11">Human Health and Social Work Activities</option>
+            <option value="in12">Arts, Entertainment and Recreation</option>          
+        </select>
+    </div>
+    <div id="t1"></div>
+    </div>
+
+    <div>
+        <div>
+            <p vertical-align="bottom">Select workforce:</p>
+            <select vertical-align="top" onchange="workforce()" id="wfFilter">
+                <option value="wf3">All Size Bands</option>
+                <option value="wf1">From 1 to 249</option>
+                <option value="wf2">250 and Above</option>
+            </select>
+        </div>
+        <div id="t2"></div>
+    </div>
+    
+    <div>
+    <div>
+        <p vertical-align="bottom">Select country:</p>
+        <select vertical-align="top" onchange="country()" id="countFilter">
+            <option value="count5">UK</option>
+            <option value="count1">England</option>
+            <option value="count2">Wales</option>
+            <option value="count3">Scotland</option>
+            <option value="count4">Northern Ireland</option>
+        </select>
+    </div>
+    <div id="t3"></div>
+    </div>
+</div>
+
+<!-- Functions -->
+<script>
+    var p1, p2, p3, l1, l2, l3;
+
+    function dashboard(fData, sData, title, response=false){
         function histoGram(fD){
             var id = '#bar', hG={}, hGDim = {t:60, r:0, b:30, l:0};
             hGDim.w = 500 - hGDim.l - hGDim.r, 
             hGDim.h = 300 - hGDim.t - hGDim.b;
                 
             // create svg for histogram.
-            var hGsvg = d3.select(id).append("svg")
-                    .attr("width", hGDim.w + hGDim.l + hGDim.r)
+            var hGsvg = d3.select(id).append("svg").attr("width", hGDim.w + hGDim.l + hGDim.r)
                     .attr("height", hGDim.h + hGDim.t + hGDim.b).append("g")
                     .attr("transform", "translate(" + hGDim.l + "," + hGDim.t + ")");
     
-            // create function for x-axis mapping.
             var x = d3.scale.ordinal().rangeRoundBands([0, hGDim.w], 0.1)
                     .domain(fD.map(function(d) { return d[0].replace( /[a-z]|\,/g,'')
                     .replace(/\,/g,'').replace(/\s/g,'').substring(0,2); }));
@@ -88,38 +243,46 @@
                     .call(d3.svg.axis().scale(x).orient("bottom"));
 
             // Title
-            hGsvg.append("text").attr("x", (hGDim.w / 2))   
-                    .attr("y", 0 - (hGDim.t / 2))
-                    .attr("text-anchor", "middle")  
-                    .style("font-size", "16px") 
-                    .style("text-decoration", "underline")  
-                    .text(title);
+            hGsvg.append("text").attr("x", (hGDim.w / 2)).attr("y", 0 - (hGDim.t / 2))
+                    .attr("text-anchor", "middle").style("font-size", "16px") 
+                    .style("text-decoration", "underline").text(title);
     
             // Create function for y-axis map.
             var y = d3.scale.linear().range([hGDim.h, 0])
                     .domain([0, d3.max(fD, function(d) { return d[1]; })]);
-    
-            // Create bars for histogram to contain rectangles and freq labels.
-            var bars = hGsvg.selectAll(".bar").data(fD).enter()
-                    .append("g").attr("class", "bar");
             
-            //create the rectangles.
+            // Create bars for histogram to contain rectangles and freq labels.
+            var bars = hGsvg.selectAll(".bar").data(fD).enter().append("g").attr("class", "bar");
+            
+            //create the rectangles
             bars.append("rect").attr("x", function(d) { return x(d[0].replace( /[a-z]|\,/g,'')
                     .replace(/\,/g,'').replace(/\s/g,'').substring(0,2)); })
-                    .attr("y", function(d) { return y(d[1]); })
-                    .attr("width", x.rangeBand())
+                    .attr("y", function(d) { return y(d[1]); }).attr("width", x.rangeBand())
                     .attr("height", function(d) { return hGDim.h - y(d[1]); })
-                    .attr('fill','steelblue')
-                    .on("mouseover",mouseover)
-                    .on("mouseout",mouseout);
-                
+                    .attr('fill','steelblue').on("mouseover",mouseover).on("mouseout",mouseout);
+                            
             // Create the frequency labels above the rectangles.
             bars.append("text").text(function(d){ return d3.format(",")(d[1])})
                 .attr("x", function(d) { return x(d[0].replace( /[a-z]|\,/g,'')
-                    .replace(/\,/g,'').replace(/\s/g,'').substring(0,2))+x.rangeBand()/2; })
-                .attr("y", function(d) { return y(d[1])-5; })
-                .attr("text-anchor", "middle");
+                .replace(/\,/g,'').replace(/\s/g,'').substring(0,2))+x.rangeBand()/2; })
+                .attr("id", "text1")
+                .attr("y", function(d) { return y(d[1])-(response ? 20 : 5); }).attr("text-anchor", "middle");
             
+            function getIndex(s) {
+                for (var i = 0; i <responsePercent.length; i++) {
+                    if (responsePercent[i].Industry == s) return i;
+                }
+                return -1;
+            }
+            
+            if (response) {
+                bars.append("text").text(function(d){ return responsePercent[getIndex(d[0])].freq.all + '%'})
+                    .attr("x", function(d) { return x(d[0].replace( /[a-z]|\,/g,'')
+                    .replace(/\,/g,'').replace(/\s/g,'').substring(0,2))+x.rangeBand()/2; })
+                    .attr("id", "text2")
+                    .attr("y", function(d) { return y(d[1])-5; }).attr("text-anchor", "middle");
+            }
+
             function mouseover(d){
                 var indus = fData.filter(function(i){ return i.Industry == d[0];})[0];
                 var nD = d3.keys(indus.freq).map(function(i){ return {type:i, freq:indus.freq[i]};});
@@ -135,20 +298,33 @@
             hG.update = function(nD, color){
                 // update the domain of the y-axis map to reflect change in frequencies.
                 y.domain([0, d3.max(nD, function(d) { return d[1]; })]);
-                
+
                 // Attach the new data to the bars.
                 var bars = hGsvg.selectAll(".bar").data(nD);
                 
+                function getFreq(s, n) {
+                    if (responseData[getIndex(s)].freq.low == n) return 'low';
+                    else if (responseData[getIndex(s)].freq.high == n) return 'high';
+                    else if (responseData[getIndex(s)].all == n) return 'all';
+                    return -1;
+                }
+
                 // transition the height and color of rectangles.
                 bars.select("rect").transition().duration(500)
                     .attr("y", function(d) {return y(d[1]); })
                     .attr("height", function(d) { return hGDim.h - y(d[1]); })
                     .attr("fill", color);
     
+                
                 // transition the frequency labels location and change value.
                 bars.select("text").transition().duration(500)
                     .text(function(d){ return d3.format(",")(d[1])})
-                    .attr("y", function(d) {return y(d[1])-5; });            
+                    .attr("y", function(d) {return y(d[1])-(response ? 20 : 5); });
+
+                if(response) { 
+                    bars.select("#text2").transition().duration(500)
+                        .text(function(d){ return responsePercent[getIndex(d[0])].freq[getFreq(d[0],d[1])] + '%'})
+                        .attr("y", function(d) {return y(d[1])-5; });}
             }        
             return hG;
         }
@@ -173,10 +349,8 @@
             return leg;
         }
 
-        function pieChart(pD){
-            var id = '#pie';
-            var pC ={},    
-            pieDim ={w:250, h:250};
+        function pieChart(pD,id){
+            var pC ={},pieDim ={w:250, h:250};
             pieDim.r = Math.min(pieDim.w, pieDim.h) / 2;
                     
             // create svg for pie chart.
@@ -196,12 +370,14 @@
                 .style("fill", function(d) { return segColor(d.data.type); })
                 .on("mouseover",mouseover).on("mouseout",mouseout);
 
-            
-    
             // create function to update pie-chart. This will be used by histogram.
             pC.update = function(nD){
                 piesvg.selectAll("path").data(pie(nD)).transition().duration(500)
-                    .attrTween("d", arcTween);
+                    .attrTween("d", function(a) {
+                        var i = d3.interpolate(this._current, a);
+                        this._current = i(0);
+                        return function(t) { return arc(i(t)); };
+                });
             }
             
             function mouseover(d){
@@ -214,17 +390,11 @@
                     return [v.Industry,v.all];}), 'steelblue');
             }
 
-            // Animating the pie-slice
-            function arcTween(a) {
-                var i = d3.interpolate(this._current, a);
-                this._current = i(0);
-                return function(t) { return arc(i(t));    };
-            } 
             return pC;
         }
         
-        function legend(lD){
-            var id = '#pie', leg = {};
+        function legend(lD, id){
+            var leg = {};
 
             // create table and row for the legend.
             var legend = d3.select(id).append("table").attr('class','legend');
@@ -236,6 +406,8 @@
                 .attr("fill",function(d){ return segColor(d.type); });
             tr.append("td").text(function(d){ 
                 if (d.type == 'low') { return "From 1 to 249"; }
+                if (d.type == 'lowest') { return "From 1 to 99"; }
+                if (d.type == 'mid') { return "From 100 to 249"; }
                 else if (d.type == 'high') { return "250 and Above"; }
             });
             tr.append("td").attr("class",'legendFreq')
@@ -258,61 +430,133 @@
     
             return leg;
         }
-        
-        var tF = ['low','high'].map(function(d){
-            return {type:d, freq:d3.sum(fData.map(function(t){ return t.freq[d];}))}; 
-        });    
+
+        var tF = ['low','high'].map(function(d){ return {type:d, freq:sData.freq[d]}; });
         var iF = fData.map(function(d){return [d.Industry,d.all];});
-        var hG = histoGram(iF), key = key(iF), pC = pieChart(tF), leg = legend(tF);
+        
+        var hG = histoGram(iF), key = key(iF), pC = pieChart(tF,'#pie'), leg = legend(tF,'#legend');
     }
-</script>
 
-<script>
-var sentData=[
-  {Industry:"Mining and Quarrying",freq:{low:15,high:13},all:28},
-  {Industry:"Manufacturing",freq:{low:1785,high:1370},all:3155},
-  {Industry:"Water Supply, Sewerage, Waste Management and Remediation Activities",freq:{low:130,high:71},all:201},
-  {Industry:"Construction",freq:{low:722,high:312},all:1034},
-  {Industry:"Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",freq:{low:1819,high:1180},all:2999},
-  {Industry:"Accommodation and Food Service Activities",freq:{low:975,high:659},all:1634},
-  {Industry:"Transportation and Storage",freq:{low:528,high:335},all:863},
-  {Industry:"Information and Communication",freq:{low:794,high:422},all:1216},
-  {Industry:"Real Estate Activities",freq:{low:112,high:88},all:200},
-  {Industry:"Professional, Scientific and Technical Activities",freq:{low:1303,high:720},all:2023},
-  {Industry:"Administrative and Support Service Activities",freq:{low:1287,high:1072},all:2359},
-  {Industry:"Education",freq:{low:303,high:457},all:760},
-  {Industry:"Human Health and Social Work Activities",freq:{low:145,high:149},all:294},
-  {Industry:"Arts, Entertainment and Recreation",freq:{low:415,high:303},all:718},
-  {Industry:"Other Service Activities",freq:{low:108,high:29},all:137},
-];
+    function trading(fData, title) {
+        function pieChart(pD,id){
+            var pC ={},pieDim ={w:250, h:250};
+            pieDim.r = Math.min(pieDim.w, pieDim.h) / 2;
+                    
+            // create svg for pie chart.
+            var piesvg = d3.select(id).append("svg")
+                .attr("width", pieDim.w).attr("height", pieDim.h).append("g")
+                .attr("transform", "translate("+pieDim.w/2+","+pieDim.h/2+")");
+            
+            // create function to draw the arcs of the pie slices.
+            var arc = d3.svg.arc().outerRadius(pieDim.r - 10).innerRadius(0);
+    
+            // create a function to compute the pie slice angles.
+            var pie = d3.layout.pie().sort(null).value(function(d) { return d.freq; });
+    
+            // Draw the pie slices.
+            piesvg.selectAll("path").data(pie(pD)).enter().append("path").attr("d", arc)
+                .each(function(d) { this._current = d; })
+                .style("fill", function(d) { return segColor(d.data.type); })
+                .on("mouseover",mouseover).on("mouseout",mouseout);
 
-var responseData=[
-  {Industry:"Manufacturing",freq:{low:648,high:449},all:1097},
-  {Industry:"Water Supply, Sewerage, Waste Management and Remediation Activities",freq:{low:50,high:20},all:70},
-  {Industry:"Construction",freq:{low:208,high:76},all:284},
-  {Industry:"Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",freq:{low:686,high:344},all:1030},
-  {Industry:"Accommodation and Food Service Activities",freq:{low:321,high:195},all:516},
-  {Industry:"Transportation and Storage",freq:{low:193,high:89},all:282},
-  {Industry:"Information and Communication",freq:{low:297,high:121},all:418},
-  {Industry:"Professional, Scientific and Technical Activities",freq:{low:468,high:265},all:733},
-  {Industry:"Administrative and Support Service Activities",freq:{low:453,high:361},all:814},
-  {Industry:"Education",freq:{low:127,high:191},all:318},
-  {Industry:"Human Health and Social Work Activities",freq:{low:85,high:59},all:144},
-  {Industry:"Arts, Entertainment and Recreation",freq:{low:180,high:98},all:278},
-];
+            // create function to update pie-chart. This will be used by histogram.
+            pC.update = function(nD){
+                piesvg.selectAll("path").data(pie(nD)).transition().duration(500)
+                    .attrTween("d", function(a) {
+                        var i = d3.interpolate(this._current, a);
+                        this._current = i(0);
+                        return function(t) { return arc(i(t)); };
+                });
+            }
+            
+            function mouseover(d){
+            //    hG.update(fData.map(function(v){ 
+            //        return [v.Industry,v.freq[d.data.type]];}),segColor(d.data.type));
+            }
+            
+            function mouseout(d){
+            //    hG.update(fData.map(function(v){
+            //        return [v.Industry,v.all];}), 'steelblue');
+            }
 
-function filter() {
-  var x = document.getElementById("filter").value;
-  document.getElementById('bar').innerHTML = "";
-  document.getElementById('key').innerHTML = "";
-  document.getElementById('pie').innerHTML = "";
-  document.getElementById('legend').innerHTML = "";
-  if (x == 'sent') {dashboard(sentData,"Total number of surveys sent out");}
-  else if (x == 'response') {dashboard(responseData,"Total number of surveys responses");}
-}
+            return pC;
+        }
 
-dashboard(sentData,"Total number of surveys sent out");
+        function legend(lD, id){
+            var leg = {};
 
+            // create table and row for the legend.
+            var legend = d3.select(id).append("table").attr('class','legend');
+            var tr = legend.append("tbody").selectAll("tr").data(lD).enter().append("tr");
+                
+            // create the columns for each segment.
+            tr.append("td").append("svg").attr("width", '16').attr("height", '16').append("rect")
+                .attr("width", '16').attr("height", '16')
+                .attr("fill",function(d){ return segColor(d.type); });
+            tr.append("td").text(function(d){ 
+                if (d.type == 'low') { return "Continuing to trade"; }
+                else if (d.type == 'high') { return "Has permanently ceased trading"; }
+                else if (d.type == 'all') { return "Has temporarily closed or temporarily paused trading"; }
+            });
+            tr.append("td").attr("class",'legendFreq')
+                .text(function(d){ return d.freq + '%';});
+    
+            // Utility function to be used to update the legend.
+            leg.update = function(nD){
+                // update the data attached to the row elements.
+                var l = legend.select("tbody").selectAll("tr").data(nD);
+                
+                l.select(".legendFreq").text(function(d){ return d.freq + '%';}); 
+            }
+    
+            return leg;
+        }
+
+        var t1 = ['low','high','all'].map(function(d){ return {type:d, freq:tradingIn[12].freq[d]}; });
+        var t2 = ['low','high','all'].map(function(d){ return {type:d, freq:tradingWf[2].freq[d]}; });
+        var t3 = ['low','high','all'].map(function(d){ return {type:d, freq:tradingCount[4].freq[d]}; });
+
+        p1 = pieChart(t1,'#t1'), p2 = pieChart(t2,'#t2'), p3 = pieChart(t3,'#t3');
+        l1 = legend(t1, '#t1'), l2 = legend(t2, '#t2'), l3 = legend(t3, '#t3');
+    }
+
+    function filter() {
+        var x = document.getElementById("filter").value;
+        clear();
+        if (x == 'sent') {
+            dashboard(sentData,sentAll[0],"Total number of surveys sent out",false);
+        }
+        else if (x == 'response') {
+            dashboard(responseData,responseAll[0],"Total number of surveys responses",true);
+        }
+        else if (x == 'trading') {
+            document.getElementById('hidden').style.display = "block";
+            trading(responsePercent,"hi");
+        }
+    }
+
+    function industry() {
+        var x = document.getElementById("inFilter").value;
+        var nD = ['low','high','all'].map(function(d){ return {type:d, freq:tradingIn[parseInt(x.substring(2,3))-1].freq[d]}; }); 
+        p1.update(nD);
+        l1.update(nD);
+    }
+
+    function workforce() {
+        var x = document.getElementById("wfFilter").value;
+        var nD = ['low','high','all'].map(function(d){console.log(x.substring(2,3)); return {type:d, freq:tradingWf[parseInt(x.substring(2,3))-1].freq[d]}; }); 
+        p2.update(nD);
+        l2.update(nD);
+    }
+
+    function country() {
+        var x = document.getElementById("countFilter").value;
+        var nD = ['low','high','all'].map(function(d){ return {type:d, freq:tradingCount[parseInt(x.substring(5,6))-1].freq[d]}; }); 
+        p3.update(nD);
+        l3.update(nD);
+    }
+    clear();
+    dashboard(sentData,sentAll[0],"Total number of surveys sent out",false);
 </script>
 </body>
 </html>
