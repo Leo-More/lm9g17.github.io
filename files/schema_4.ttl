@@ -1,0 +1,63 @@
+@prefix : <https://leo-more.github.io/lm9g17.github.io/ontology/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dbo: <http://www.dbpedia.org/ontology/> .
+@prefix dbr: <http://www.dbpedia.org/page/> .
+@prefix dbp: <http://www.dbpedia.org/property/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+
+# Dimension - Rows
+:Industry rdf:type owl:Class;
+    rdfs:subClassOf scovo:Dimension;
+    owl:sameAs dbo:Industry;
+    rdfs:label "Industry";
+    rdfs:comment "Industry class where instances with a _ represents a comma, and __ represents a semicolon" .
+      
+:WorkforceSizeRange rdf:type owl:Class;
+    rdfs:subClassOf scovo:Dimension;
+    rdfs:label "Workforce Size Range";
+    rdfs:comment "Workforce size range class representing the size range of a business" .
+
+:Country rdf:type owl:Class;
+    rdfs:subClassOf scovo:Dimension;
+    owl:sameAs dbo:country;
+    rdfs:label "Country";
+    rdfs:comment "Country class" .
+
+# Dimension - Columns
+:AppliedInitiative rdf:type owl:Class;
+    rdf:subClassOf scovo:Dimension ;
+    rdfs:label "Applied Initiative";
+    rdf:subClassOf dbr:Initiative;
+    rdfs:comment "Applied Initiative class" .
+
+# Dimension - Question
+:Question rdf:type owl:class;
+    rdfs:subClassOf scovo:Dimension;
+    rdfs:label "Question";
+    dbo:isPartOf :Survey;
+    rdfs:comment "Question asked in survey".
+
+# Dimension - Survey
+:Survey rdf:type owl:class;
+    rdfs:subClassOf scovo:Dimension;
+    rdfs:label "Business Impacts of COVID-19 Survey";
+    dbp:releaseDate "2020-05-07"^^xsd:date;
+    schema:liveDate "2020-04-20"^^xsd:date;
+    dbp:closeDate "2020-05-03"^^xsd:date; 
+    schema:referenceStartDate "2020-04-06"^^xsd:date;
+    schema:referenceEndDate "2020-04-19"^^xsd:date;
+    dbp:contact "bics@ons.gov.uk";
+    rdfs:comment "Business Impacts of COVID-19 Survey" .
+
+# Dimension - TimePeriod
+:TimePeriod rdf:type owl:Class;
+    rdfs:subClassOf scovo:Dimension;
+    rdfs:label "Time Period";
+    rdfs:comment "Represents a time period" .
+
+# Properties
+:liveDate rdfs:subPropertyOf dbo:releaseDate .
+:referenceStartDate rdfs:subPropertyOf dbp:startDate .
+:referenceEndDate rdfs:subPropertyOf dbo:endDate .

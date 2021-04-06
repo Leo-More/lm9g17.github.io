@@ -1,0 +1,18 @@
+@prefix : <https://leo-more.github.io/lm9g17.github.io/ontology/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+
+# Dimension - Rows
+:Industry rdf:type owl:Class;
+    rdfs:subClassOf scovo:Dimension;
+    owl:sameAs dbo:Industry;
+    rdfs:label "Industry";
+    rdfs:comment "Industry class where instances with a _ represents a comma, and __ represents a semicolon" .
+    
+# Dimension - Columns
+:WorkforceSizeRange rdf:type owl:Class;
+    rdfs:subClassOf scovo:Dimension;
+    rdfs:label "Workforce Size Range";
+    rdfs:comment "Workforce size range class representing the size range of a business" .

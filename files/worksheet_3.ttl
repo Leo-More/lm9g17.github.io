@@ -1,0 +1,694 @@
+@prefix : <https://leo-more.github.io/lm9g17.github.io/data/> .
+@prefix schema: <https://leo-more.github.io/lm9g17.github.io/ontology/> .
+
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix dbp: <https://dbpedia.org/property/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix fibo: <https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/Analytics/> .
+
+# Question
+schema:q1 a schema:Question;
+    rdfs:label "Question: What is the current trading status of your enterprise?";
+	dbo:question "What is the current trading status of your enterprise" .
+
+# Reference Period
+schema:ReferencePeriod a schema:TimePeriod;
+	rdfs:label "Reference Period";
+    dbo:startDate "2020-04-06"^^xsd:date;
+    dbo:endDate "2020-04-19"^^xsd:date .
+
+# Trading Status
+schema:Continuing a schema:TradingStatus;
+	dbo:isPartOf :q1;
+    rdfs:label "Continuing to trade" .
+    
+schema:Permenantly a schema:TradingStatus;
+	dbo:isPartOf :q1;
+    rdfs:label "Has permanently ceased trading **" .
+    
+schema:Temporarily a schema:TradingStatus;
+	dbo:isPartOf :q1;
+    rdfs:label "Has temporarily closed or temporarily paused trading" .
+
+# Industries
+schema:Manufacturing a schema:Industry;
+	rdfs:label "Manufacturing".
+
+schema:WaterSupply_Sewerage_WasteManagementAndRemediationActivities a schema:Industry;
+	rdfs:label "Water Supply, Sewerage, Waste Management and Remediation Activities".
+
+schema:Construction a schema:Industry;
+	rdfs:label "Construction".
+
+schema:WholesaleAndRetailTrade__RepairOfMotorVehiclesAndMotorcycles a schema:Industry;
+	rdfs:label "Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles".
+
+schema:AccommodationAndFoodServiceActivities a schema:Industry;
+	rdfs:label "Accommodation and Food Service Activities".
+
+schema:TransportationAndStorage a schema:Industry;
+	rdfs:label "Transportation and Storage".
+
+schema:InformationAndCommunication a schema:Industry;
+	rdfs:label "Information and Communication".
+
+schema:Professional_ScientificAndTechnicalActivities a schema:Industry;
+	rdfs:label "Professional, Scientific and Technical Activities".
+
+schema:AdministrativeAndSupportServiceActivities a schema:Industry;
+	rdfs:label "Administrative and Support Service Activities".
+
+schema:Education a schema:Industry;
+	rdfs:label "Education".
+
+schema:HumanHealthAndSocialWorkActivities a schema:Industry;
+	rdfs:label "Human Health and Social Work Activities".
+
+schema:Arts_EntertainmentAndRecreation a schema:Industry;
+	rdfs:label "Arts, Entertainment and Recreation".
+
+schema:AllIndustries a schema:Industry;
+	rdfs:label "All Industries" .
+
+# Workforce Size Ranges
+schema:From_1_To_249 a schema:WorkforceSizeRange;
+	rdfs:label "From 1 to 249";
+  	dbp:min "1"^^xsd:int;
+  	dbp:max "249"^^xsd:int .
+
+schema:250_And_Above a schema:WorkforceSizeRange;
+	rdfs:label "250 and Above";
+  	dbp:min "250"^^xsd:int;
+	dbp:max "Max" .
+
+schema:All_Size_Bands a schema:WorkforceSizeRange;
+	rdfs:label "All Size Bands";
+  	dbp:min "1"^^xsd:int;
+	dbp:max "Max" .
+
+# Countries
+schema:England a schema:Country;
+	rdfs:label "England";
+    owl:sameAs <https://www.geonames.org/6269131/england.html> .
+
+schema:Wales a schema:Country;
+	rdfs:label "Wales";
+    owl:sameAs <https://www.geonames.org/2634895/wales.html> .
+
+schema:Scotland a schema:Country;
+	rdfs:label "Scotland";
+    owl:sameAs <https://www.geonames.org/2638360/Scotland.html> .
+
+schema:NorthernIreland a schema:Country;
+	rdfs:label "Northern Ireland";
+    owl:sameAs <https://www.geonames.org/2641364/northern-ireland.html> .
+
+schema:UK a schema:Country;
+	rdfs:label "United Kingdom";
+    owl:sameAs <https://www.geonames.org/countries/GB/united-kingdom.html> .
+
+# Dataset - table6
+:table6 a scovo:Dataset;
+	rdfs:label "Percentage of all responding businesses, broken down by industry, UK, 6 April to 19 April 2020";
+	scovo:datasetOf :table6_1_1;
+	scovo:datasetOf :table6_2_1;
+	scovo:datasetOf :table6_3_1;
+	scovo:datasetOf :table6_4_1;
+	scovo:datasetOf :table6_5_1;
+	scovo:datasetOf :table6_6_1;
+	scovo:datasetOf :table6_7_1;
+	scovo:datasetOf :table6_8_1;
+	scovo:datasetOf :table6_9_1;
+	scovo:datasetOf :table6_10_1;
+	scovo:datasetOf :table6_11_1;
+	scovo:datasetOf :table6_12_1;
+	scovo:datasetOf :table6_13_1;
+	scovo:datasetOf :table6_1_2;
+	scovo:datasetOf :table6_2_2;
+	scovo:datasetOf :table6_3_2;
+	scovo:datasetOf :table6_4_2;
+	scovo:datasetOf :table6_5_2;
+	scovo:datasetOf :table6_6_2;
+	scovo:datasetOf :table6_7_2;
+	scovo:datasetOf :table6_8_2;
+	scovo:datasetOf :table6_9_2;
+	scovo:datasetOf :table6_10_2;
+	scovo:datasetOf :table6_11_2;
+	scovo:datasetOf :table6_12_2;
+	scovo:datasetOf :table6_13_2;
+	scovo:datasetOf :table6_1_3;
+	scovo:datasetOf :table6_2_3;
+	scovo:datasetOf :table6_3_3;
+	scovo:datasetOf :table6_4_3;
+	scovo:datasetOf :table6_5_3;
+	scovo:datasetOf :table6_6_3;
+	scovo:datasetOf :table6_7_3;
+	scovo:datasetOf :table6_8_3;
+	scovo:datasetOf :table6_9_3;
+	scovo:datasetOf :table6_10_3;
+	scovo:datasetOf :table6_11_3;
+	scovo:datasetOf :table6_12_3;
+	scovo:datasetOf :table6_13_3 .
+
+# Data - table6
+:table6_1_1 a scovo:Item;
+	fibo:Percentage 79.0;
+	scovo:dataset :table6;
+	scovo:dimesion schema:Manufacturing;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_2_1 a scovo:Item;
+	fibo:Percentage 90.0;
+	scovo:dataset :table6;
+	scovo:dimesion schema:WaterSupply_Sewerage_WasteManagementAndRemediationActivities;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_3_1 a scovo:Item;
+	fibo:Percentage 73.2;
+	scovo:dataset :table6;
+	scovo:dimesion schema:Construction;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_4_1 a scovo:Item;
+	fibo:Percentage 75.2;
+	scovo:dataset :table6;
+	scovo:dimesion schema:WholesaleAndRetailTrade__RepairOfMotorVehiclesAndMotorcycles;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_5_1 a scovo:Item;
+	fibo:Percentage 18.2;
+	scovo:dataset :table6;
+	scovo:dimesion schema:AccommodationAndFoodServiceActivities;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_6_1 a scovo:Item;
+	fibo:Percentage 91.5;
+	scovo:dataset :table6;
+	scovo:dimesion schema:TransportationAndStorage;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_7_1 a scovo:Item;
+	fibo:Percentage 95.0;
+	scovo:dataset :table6;
+	scovo:dimesion schema:InformationAndCommunication;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_8_1 a scovo:Item;
+	fibo:Percentage 96.7;
+	scovo:dataset :table6;
+	scovo:dimesion schema:Professional_ScientificAndTechnicalActivities;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_9_1 a scovo:Item;
+	fibo:Percentage 91.5;
+	scovo:dataset :table6;
+	scovo:dimesion schema:AdministrativeAndSupportServiceActivities;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_10_1 a scovo:Item;
+	fibo:Percentage 86.8;
+	scovo:dataset :table6;
+	scovo:dimesion schema:Education;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_11_1 a scovo:Item;
+	fibo:Percentage 93.8;
+	scovo:dataset :table6;
+	scovo:dimesion schema:HumanHealthAndSocialWorkActivities;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_12_1 a scovo:Item;
+	fibo:Percentage 20.5;
+	scovo:dataset :table6;
+	scovo:dimesion schema:Arts_EntertainmentAndRecreation;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_13_1 a scovo:Item;
+	fibo:Percentage 76.7;
+	scovo:dataset :table6;
+	scovo:dimesion schema:AllIndustries;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_1_2 a scovo:Item;
+	fibo:Percentage 0.4;
+	scovo:dataset :table6;
+	scovo:dimesion schema:Manufacturing;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_2_2 a scovo:Item;
+	fibo:Percentage 0.0;
+	scovo:dataset :table6;
+	scovo:dimesion schema:WaterSupply_Sewerage_WasteManagementAndRemediationActivities;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_3_2 a scovo:Item;
+	fibo:Percentage 0.7;
+	scovo:dataset :table6;
+	scovo:dimesion schema:Construction;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_4_2 a scovo:Item;
+	fibo:Percentage 0.5;
+	scovo:dataset :table6;
+	scovo:dimesion schema:WholesaleAndRetailTrade__RepairOfMotorVehiclesAndMotorcycles;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_5_2 a scovo:Item;
+	fibo:Percentage 1.2;
+	scovo:dataset :table6;
+	scovo:dimesion schema:AccommodationAndFoodServiceActivities;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_6_2 a scovo:Item;
+	fibo:Percentage 0.0;
+	scovo:dataset :table6;
+	scovo:dimesion schema:TransportationAndStorage;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_7_2 a scovo:Item;
+	fibo:Percentage 0.5;
+	scovo:dataset :table6;
+	scovo:dimesion schema:InformationAndCommunication;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_8_2 a scovo:Item;
+	fibo:Percentage 0.3;
+	scovo:dataset :table6;
+	scovo:dimesion schema:Professional_ScientificAndTechnicalActivities;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_9_2 a scovo:Item;
+	fibo:Percentage 0.4;
+	scovo:dataset :table6;
+	scovo:dimesion schema:AdministrativeAndSupportServiceActivities;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_10_2 a scovo:Item;
+	fibo:Percentage 0.6;
+	scovo:dataset :table6;
+	scovo:dimesion schema:Education;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_11_2 a scovo:Item;
+	fibo:Percentage 1.4;
+	scovo:dataset :table6;
+	scovo:dimesion schema:HumanHealthAndSocialWorkActivities;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_12_2 a scovo:Item;
+	fibo:Percentage 0.0;
+	scovo:dataset :table6;
+	scovo:dimesion schema:Arts_EntertainmentAndRecreation;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_13_2 a scovo:Item;
+	fibo:Percentage 0.5;
+	scovo:dataset :table6;
+	scovo:dimesion schema:AllIndustries;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_1_3 a scovo:Item;
+	fibo:Percentage 20.6;
+	scovo:dataset :table6;
+	scovo:dimesion schema:Manufacturing;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_2_3 a scovo:Item;
+	fibo:Percentage 10.0;
+	scovo:dataset :table6;
+	scovo:dimesion schema:WaterSupply_Sewerage_WasteManagementAndRemediationActivities;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_3_3 a scovo:Item;
+	fibo:Percentage 26.1;
+	scovo:dataset :table6;
+	scovo:dimesion schema:Construction;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_4_3 a scovo:Item;
+	fibo:Percentage 24.3;
+	scovo:dataset :table6;
+	scovo:dimesion schema:WholesaleAndRetailTrade__RepairOfMotorVehiclesAndMotorcycles;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_5_3 a scovo:Item;
+	fibo:Percentage 80.6;
+	scovo:dataset :table6;
+	scovo:dimesion schema:AccommodationAndFoodServiceActivities;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_6_3 a scovo:Item;
+	fibo:Percentage 8.5;
+	scovo:dataset :table6;
+	scovo:dimesion schema:TransportationAndStorage;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_7_3 a scovo:Item;
+	fibo:Percentage 4.5;
+	scovo:dataset :table6;
+	scovo:dimesion schema:InformationAndCommunication;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_8_3 a scovo:Item;
+	fibo:Percentage 3.0;
+	scovo:dataset :table6;
+	scovo:dimesion schema:Professional_ScientificAndTechnicalActivities;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_9_3 a scovo:Item;
+	fibo:Percentage 8.1;
+	scovo:dataset :table6;
+	scovo:dimesion schema:AdministrativeAndSupportServiceActivities;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_10_3 a scovo:Item;
+	fibo:Percentage 12.6;
+	scovo:dataset :table6;
+	scovo:dimesion schema:Education;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_11_3 a scovo:Item;
+	fibo:Percentage 4.9;
+	scovo:dataset :table6;
+	scovo:dimesion schema:HumanHealthAndSocialWorkActivities;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_12_3 a scovo:Item;
+	fibo:Percentage 79.5;
+	scovo:dataset :table6;
+	scovo:dimesion schema:Arts_EntertainmentAndRecreation;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table6_13_3 a scovo:Item;
+	fibo:Percentage 22.8;
+	scovo:dataset :table6;
+	scovo:dimesion schema:AllIndustries;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+# Dataset - table7
+:table7 a scovo:Dataset;
+	rdfs:label "Percentage of all responding businesses, broken down by size band, UK, 6 April to 19 April 2020";
+	scovo:datasetOf :table7_1_1;
+	scovo:datasetOf :table7_2_1;
+	scovo:datasetOf :table7_3_1;
+	scovo:datasetOf :table7_1_2;
+	scovo:datasetOf :table7_2_2;
+	scovo:datasetOf :table7_3_2;
+	scovo:datasetOf :table7_1_3;
+	scovo:datasetOf :table7_2_3;
+	scovo:datasetOf :table7_3_3 .
+
+# Data - table7
+:table7_1_1 a scovo:Item;
+	fibo:Percentage 74.8;
+	scovo:dataset :table7;
+	scovo:dimesion schema:From_1_To_249;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table7_2_1 a scovo:Item;
+	fibo:Percentage 79.8;
+	scovo:dataset :table7;
+	scovo:dimesion schema:250_And_Above;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table7_3_1 a scovo:Item;
+	fibo:Percentage 76.7;
+	scovo:dataset :table7;
+	scovo:dimesion schema:All_Size_Bands;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table7_1_2 a scovo:Item;
+	fibo:Percentage 0.5;
+	scovo:dataset :table7;
+	scovo:dimesion schema:From_1_To_249;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table7_2_2 a scovo:Item;
+	fibo:Percentage 0.5;
+	scovo:dataset :table7;
+	scovo:dimesion schema:250_And_Above;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table7_3_2 a scovo:Item;
+	fibo:Percentage 0.5;
+	scovo:dataset :table7;
+	scovo:dimesion schema:All_Size_Bands;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table7_1_3 a scovo:Item;
+	fibo:Percentage 24.7;
+	scovo:dataset :table7;
+	scovo:dimesion schema:From_1_To_249;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table7_2_3 a scovo:Item;
+	fibo:Percentage 19.7;
+	scovo:dataset :table7;
+	scovo:dimesion schema:250_And_Above;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table7_3_3 a scovo:Item;
+	fibo:Percentage 22.8;
+	scovo:dataset :table7;
+	scovo:dimesion schema:All_Size_Bands;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+# Dataset - table8
+:table8 a scovo:Dataset;
+	rdfs:label "Percentage of all responding businesses, broken down by country, UK, 6 April to 19 April 2020";
+	scovo:datasetOf :table8_1_1;
+	scovo:datasetOf :table8_2_1;
+	scovo:datasetOf :table8_3_1;
+	scovo:datasetOf :table8_4_1;
+	scovo:datasetOf :table8_5_1;
+	scovo:datasetOf :table8_1_2;
+	scovo:datasetOf :table8_2_2;
+	scovo:datasetOf :table8_3_2;
+	scovo:datasetOf :table8_4_2;
+	scovo:datasetOf :table8_5_2;
+	scovo:datasetOf :table8_1_3;
+	scovo:datasetOf :table8_2_3;
+	scovo:datasetOf :table8_3_3;
+	scovo:datasetOf :table8_4_3;
+	scovo:datasetOf :table8_5_3 .
+
+# Data - table8
+:table8_1_1 a scovo:Item;
+	fibo:Percentage 77.8;
+	scovo:dataset :table8;
+	scovo:dimesion schema:England;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table8_2_1 a scovo:Item;
+	fibo:Percentage 76.2;
+	scovo:dataset :table8;
+	scovo:dimesion schema:Wales;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table8_3_1 a scovo:Item;
+	fibo:Percentage 77.6;
+	scovo:dataset :table8;
+	scovo:dimesion schema:Scotland;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table8_4_1 a scovo:Item;
+	fibo:Percentage 72.8;
+	scovo:dataset :table8;
+	scovo:dimesion schema:NorthernIreland;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table8_5_1 a scovo:Item;
+	fibo:Percentage 76.7;
+	scovo:dataset :table8;
+	scovo:dimesion schema:UK;
+	scovo:dimesion schema:Continuing;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table8_1_2 a scovo:Item;
+	fibo:Percentage 0.4;
+	scovo:dataset :table8;
+	scovo:dimesion schema:England;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table8_2_2 a scovo:Item;
+	fibo:Percentage 1.1;
+	scovo:dataset :table8;
+	scovo:dimesion schema:Wales;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table8_3_2 a scovo:Item;
+	fibo:Percentage 0.7;
+	scovo:dataset :table8;
+	scovo:dimesion schema:Scotland;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table8_4_2 a scovo:Item;
+	fibo:Percentage 0.0;
+	scovo:dataset :table8;
+	scovo:dimesion schema:NorthernIreland;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table8_5_2 a scovo:Item;
+	fibo:Percentage 0.5;
+	scovo:dataset :table8;
+	scovo:dimesion schema:UK;
+	scovo:dimesion schema:Permenantly;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table8_1_3 a scovo:Item;
+	fibo:Percentage 21.8;
+	scovo:dataset :table8;
+	scovo:dimesion schema:England;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table8_2_3 a scovo:Item;
+	fibo:Percentage 22.7;
+	scovo:dataset :table8;
+	scovo:dimesion schema:Wales;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table8_3_3 a scovo:Item;
+	fibo:Percentage 21.7;
+	scovo:dataset :table8;
+	scovo:dimesion schema:Scotland;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table8_4_3 a scovo:Item;
+	fibo:Percentage 27.2;
+	scovo:dataset :table8;
+	scovo:dimesion schema:NorthernIreland;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .
+
+:table8_5_3 a scovo:Item;
+	fibo:Percentage 22.8;
+	scovo:dataset :table8;
+	scovo:dimesion schema:UK;
+	scovo:dimesion schema:Temporarily;
+	scovo:dimesion schema:ReferencePeriod;
+	scovo:dimesion schema:q1 .

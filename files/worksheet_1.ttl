@@ -1,0 +1,457 @@
+@prefix : <https://leo-more.github.io/lm9g17.github.io/data/> .
+@prefix schema: <https://leo-more.github.io/lm9g17.github.io/ontology/> .
+@prefix dbp: <https://dbpedia.org/property/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+
+# Industries
+schema:MiningAndQuarrying a schema:Industry;
+	rdfs:label "Mining and Quarrying" .
+
+schema:Manufacturing a schema:Industry;
+	rdfs:label "Manufacturing".
+
+schema:WaterSupply_Sewerage_WasteManagementAndRemediationActivities a schema:Industry;
+	rdfs:label "Water Supply, Sewerage, Waste Management and Remediation Activities".
+
+schema:Construction a schema:Industry;
+	rdfs:label "Construction".
+
+schema:WholesaleAndRetailTrade__RepairOfMotorVehiclesAndMotorcycles a schema:Industry;
+	rdfs:label "Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles".
+
+schema:AccommodationAndFoodServiceActivities a schema:Industry;
+	rdfs:label "Accommodation and Food Service Activities".
+
+schema:TransportationAndStorage a schema:Industry;
+	rdfs:label "Transportation and Storage".
+
+schema:InformationAndCommunication a schema:Industry;
+	rdfs:label "Information and Communication".
+
+schema:RealEstateActivities a schema:Industry;
+	rdfs:label "Real Estate Activities".
+
+schema:Professional_ScientificAndTechnicalActivities a schema:Industry;
+	rdfs:label "Professional, Scientific and Technical Activities".
+
+schema:AdministrativeAndSupportServiceActivities a schema:Industry;
+	rdfs:label "Administrative and Support Service Activities".
+
+schema:Education a schema:Industry;
+	rdfs:label "Education".
+
+schema:HumanHealthAndSocialWorkActivities a schema:Industry;
+	rdfs:label "Human Health and Social Work Activities".
+
+schema:Arts_EntertainmentAndRecreation a schema:Industry;
+	rdfs:label "Arts, Entertainment and Recreation".
+
+schema:OtherServiceActivities a schema:Industry;
+	rdfs:label "Other Service Activities".
+
+schema:AllIndustries a schema:Industry;
+	rdfs:label "All Industries".
+
+# Workforce Size Ranges
+schema:From_1_To_99 a schema:WorkforceSizeRange;
+	rdfs:label "From 1 to 99";
+  	dbp:min "1"^^xsd:int;
+ 	dbp:max "99"^^xsd:int .
+
+schema:From_99_To_249 a schema:WorkforceSizeRange;
+	rdfs:label "From 99 to 249";
+  	dbp:min "99"^^xsd:int;
+  	dbp:max "249"^^xsd:int .
+
+schema:From_1_To_249 a schema:WorkforceSizeRange;
+	rdfs:label "From 1 to 249";
+  	dbp:min "1"^^xsd:int;
+  	dbp:max "249"^^xsd:int .
+
+schema:250_And_Above a schema:WorkforceSizeRange;
+	rdfs:label "250 and Above";
+  	dbp:min "250"^^xsd:int;
+	dbp:max "Max" .
+
+schema:All_Size_Bands a schema:WorkforceSizeRange;
+	rdfs:label "All Size Bands";
+  	dbp:min "1"^^xsd:int;
+	dbp:max "Max" .
+
+# Dataset - table1
+:table1 a scovo:Dataset;
+	rdfs:label "Total number of surveys sent out, sample for the BICS survey broken down by industry";
+	scovo:datasetOf :table1_1_1;
+	scovo:datasetOf :table1_2_1;
+	scovo:datasetOf :table1_3_1;
+	scovo:datasetOf :table1_4_1;
+	scovo:datasetOf :table1_5_1;
+	scovo:datasetOf :table1_6_1;
+	scovo:datasetOf :table1_7_1;
+	scovo:datasetOf :table1_8_1;
+	scovo:datasetOf :table1_9_1;
+	scovo:datasetOf :table1_10_1;
+	scovo:datasetOf :table1_11_1;
+	scovo:datasetOf :table1_12_1;
+	scovo:datasetOf :table1_13_1;
+	scovo:datasetOf :table1_14_1;
+	scovo:datasetOf :table1_15_1;
+	scovo:datasetOf :table1_16_1;
+	scovo:datasetOf :table1_1_2;
+	scovo:datasetOf :table1_2_2;
+	scovo:datasetOf :table1_3_2;
+	scovo:datasetOf :table1_4_2;
+	scovo:datasetOf :table1_5_2;
+	scovo:datasetOf :table1_6_2;
+	scovo:datasetOf :table1_7_2;
+	scovo:datasetOf :table1_8_2;
+	scovo:datasetOf :table1_9_2;
+	scovo:datasetOf :table1_10_2;
+	scovo:datasetOf :table1_11_2;
+	scovo:datasetOf :table1_12_2;
+	scovo:datasetOf :table1_13_2;
+	scovo:datasetOf :table1_14_2;
+	scovo:datasetOf :table1_15_2;
+	scovo:datasetOf :table1_16_2;
+	scovo:datasetOf :table1_1_3;
+	scovo:datasetOf :table1_2_3;
+	scovo:datasetOf :table1_3_3;
+	scovo:datasetOf :table1_4_3;
+	scovo:datasetOf :table1_5_3;
+	scovo:datasetOf :table1_6_3;
+	scovo:datasetOf :table1_7_3;
+	scovo:datasetOf :table1_8_3;
+	scovo:datasetOf :table1_9_3;
+	scovo:datasetOf :table1_10_3;
+	scovo:datasetOf :table1_11_3;
+	scovo:datasetOf :table1_12_3;
+	scovo:datasetOf :table1_13_3;
+	scovo:datasetOf :table1_14_3;
+	scovo:datasetOf :table1_15_3;
+	scovo:datasetOf :table1_16_3.
+
+# Data - table1
+:table1_1_1 a scovo:Item;
+	rdf:value 15;
+	scovo:dataset :table1;
+	scovo:dimesion schema:MiningAndQuarrying;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_2_1 a scovo:Item;
+	rdf:value 1785;
+	scovo:dataset :table1;
+	scovo:dimesion schema:Manufacturing;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_3_1 a scovo:Item;
+	rdf:value 130;
+	scovo:dataset :table1;
+	scovo:dimesion schema:WaterSupply_Sewerage_WasteManagementAndRemediationActivities;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_4_1 a scovo:Item;
+	rdf:value 722;
+	scovo:dataset :table1;
+	scovo:dimesion schema:Construction;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_5_1 a scovo:Item;
+	rdf:value 1819;
+	scovo:dataset :table1;
+	scovo:dimesion schema:WholesaleAndRetailTrade__RepairOfMotorVehiclesAndMotorcycles;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_6_1 a scovo:Item;
+	rdf:value 975;
+	scovo:dataset :table1;
+	scovo:dimesion schema:AccommodationAndFoodServiceActivities;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_7_1 a scovo:Item;
+	rdf:value 528;
+	scovo:dataset :table1;
+	scovo:dimesion schema:TransportationAndStorage;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_8_1 a scovo:Item;
+	rdf:value 794;
+	scovo:dataset :table1;
+	scovo:dimesion schema:InformationAndCommunication;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_9_1 a scovo:Item;
+	rdf:value 112;
+	scovo:dataset :table1;
+	scovo:dimesion schema:RealEstateActivities;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_10_1 a scovo:Item;
+	rdf:value 1303;
+	scovo:dataset :table1;
+	scovo:dimesion schema:Professional_ScientificAndTechnicalActivities;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_11_1 a scovo:Item;
+	rdf:value 1287;
+	scovo:dataset :table1;
+	scovo:dimesion schema:AdministrativeAndSupportServiceActivities;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_12_1 a scovo:Item;
+	rdf:value 303;
+	scovo:dataset :table1;
+	scovo:dimesion schema:Education;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_13_1 a scovo:Item;
+	rdf:value 145;
+	scovo:dataset :table1;
+	scovo:dimesion schema:HumanHealthAndSocialWorkActivities;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_14_1 a scovo:Item;
+	rdf:value 415;
+	scovo:dataset :table1;
+	scovo:dimesion schema:Arts_EntertainmentAndRecreation;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_15_1 a scovo:Item;
+	rdf:value 108;
+	scovo:dataset :table1;
+	scovo:dimesion schema:OtherServiceActivities;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_16_1 a scovo:Item;
+	rdf:value 10442;
+	scovo:dataset :table1;
+	scovo:dimesion schema:AllIndustries;
+	scovo:dimesion schema:From_1_To_249 .
+
+:table1_1_2 a scovo:Item;
+	rdf:value 13;
+	scovo:dataset :table1;
+	scovo:dimesion schema:MiningAndQuarrying;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_2_2 a scovo:Item;
+	rdf:value 1370;
+	scovo:dataset :table1;
+	scovo:dimesion schema:Manufacturing;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_3_2 a scovo:Item;
+	rdf:value 71;
+	scovo:dataset :table1;
+	scovo:dimesion schema:WaterSupply_Sewerage_WasteManagementAndRemediationActivities;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_4_2 a scovo:Item;
+	rdf:value 312;
+	scovo:dataset :table1;
+	scovo:dimesion schema:Construction;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_5_2 a scovo:Item;
+	rdf:value 1180;
+	scovo:dataset :table1;
+	scovo:dimesion schema:WholesaleAndRetailTrade__RepairOfMotorVehiclesAndMotorcycles;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_6_2 a scovo:Item;
+	rdf:value 659;
+	scovo:dataset :table1;
+	scovo:dimesion schema:AccommodationAndFoodServiceActivities;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_7_2 a scovo:Item;
+	rdf:value 335;
+	scovo:dataset :table1;
+	scovo:dimesion schema:TransportationAndStorage;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_8_2 a scovo:Item;
+	rdf:value 422;
+	scovo:dataset :table1;
+	scovo:dimesion schema:InformationAndCommunication;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_9_2 a scovo:Item;
+	rdf:value 88;
+	scovo:dataset :table1;
+	scovo:dimesion schema:RealEstateActivities;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_10_2 a scovo:Item;
+	rdf:value 720;
+	scovo:dataset :table1;
+	scovo:dimesion schema:Professional_ScientificAndTechnicalActivities;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_11_2 a scovo:Item;
+	rdf:value 1072;
+	scovo:dataset :table1;
+	scovo:dimesion schema:AdministrativeAndSupportServiceActivities;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_12_2 a scovo:Item;
+	rdf:value 457;
+	scovo:dataset :table1;
+	scovo:dimesion schema:Education;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_13_2 a scovo:Item;
+	rdf:value 149;
+	scovo:dataset :table1;
+	scovo:dimesion schema:HumanHealthAndSocialWorkActivities;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_14_2 a scovo:Item;
+	rdf:value 303;
+	scovo:dataset :table1;
+	scovo:dimesion schema:Arts_EntertainmentAndRecreation;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_15_2 a scovo:Item;
+	rdf:value 29;
+	scovo:dataset :table1;
+	scovo:dimesion schema:OtherServiceActivities;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_16_2 a scovo:Item;
+	rdf:value 7181;
+	scovo:dataset :table1;
+	scovo:dimesion schema:AllIndustries;
+	scovo:dimesion schema:250_And_Above .
+
+:table1_1_3 a scovo:Item;
+	rdf:value 28;
+	scovo:dataset :table1;
+	scovo:dimesion schema:MiningAndQuarrying;
+	scovo:dimesion schema:Total .
+
+:table1_2_3 a scovo:Item;
+	rdf:value 3155;
+	scovo:dataset :table1;
+	scovo:dimesion schema:Manufacturing;
+	scovo:dimesion schema:Total .
+
+:table1_3_3 a scovo:Item;
+	rdf:value 201;
+	scovo:dataset :table1;
+	scovo:dimesion schema:WaterSupply_Sewerage_WasteManagementAndRemediationActivities;
+	scovo:dimesion schema:Total .
+
+:table1_4_3 a scovo:Item;
+	rdf:value 1034;
+	scovo:dataset :table1;
+	scovo:dimesion schema:Construction;
+	scovo:dimesion schema:Total .
+
+:table1_5_3 a scovo:Item;
+	rdf:value 2999;
+	scovo:dataset :table1;
+	scovo:dimesion schema:WholesaleAndRetailTrade__RepairOfMotorVehiclesAndMotorcycles;
+	scovo:dimesion schema:Total .
+
+:table1_6_3 a scovo:Item;
+	rdf:value 1634;
+	scovo:dataset :table1;
+	scovo:dimesion schema:AccommodationAndFoodServiceActivities;
+	scovo:dimesion schema:Total .
+
+:table1_7_3 a scovo:Item;
+	rdf:value 863;
+	scovo:dataset :table1;
+	scovo:dimesion schema:TransportationAndStorage;
+	scovo:dimesion schema:Total .
+
+:table1_8_3 a scovo:Item;
+	rdf:value 1216;
+	scovo:dataset :table1;
+	scovo:dimesion schema:InformationAndCommunication;
+	scovo:dimesion schema:Total .
+
+:table1_9_3 a scovo:Item;
+	rdf:value 200;
+	scovo:dataset :table1;
+	scovo:dimesion schema:RealEstateActivities;
+	scovo:dimesion schema:Total .
+
+:table1_10_3 a scovo:Item;
+	rdf:value 2023;
+	scovo:dataset :table1;
+	scovo:dimesion schema:Professional_ScientificAndTechnicalActivities;
+	scovo:dimesion schema:Total .
+
+:table1_11_3 a scovo:Item;
+	rdf:value 2359;
+	scovo:dataset :table1;
+	scovo:dimesion schema:AdministrativeAndSupportServiceActivities;
+	scovo:dimesion schema:Total .
+
+:table1_12_3 a scovo:Item;
+	rdf:value 760;
+	scovo:dataset :table1;
+	scovo:dimesion schema:Education;
+	scovo:dimesion schema:Total .
+
+:table1_13_3 a scovo:Item;
+	rdf:value 294;
+	scovo:dataset :table1;
+	scovo:dimesion schema:HumanHealthAndSocialWorkActivities;
+	scovo:dimesion schema:Total .
+
+:table1_14_3 a scovo:Item;
+	rdf:value 718;
+	scovo:dataset :table1;
+	scovo:dimesion schema:Arts_EntertainmentAndRecreation;
+	scovo:dimesion schema:Total .
+
+:table1_15_3 a scovo:Item;
+	rdf:value 137;
+	scovo:dataset :table1;
+	scovo:dimesion schema:OtherServiceActivities;
+	scovo:dimesion schema:Total .
+
+:table1_16_3 a scovo:Item;
+	rdf:value 17623;
+	scovo:dataset :table1;
+	scovo:dimesion schema:AllIndustries;
+	scovo:dimesion schema:Total .
+
+# Dataset - table2
+:table2 a scovo:Dataset;
+	rdfs:label "Total number of surveys sent out, sample for the BICS survey broken down by workforce size";
+	scovo:datasetOf :table2_1_1;
+	scovo:datasetOf :table2_1_2;
+	scovo:datasetOf :table2_1_3;
+	scovo:datasetOf :table2_1_4.
+
+# Data - table2
+:table2_1_1 a scovo:Item;
+	rdf:value 1326;
+	scovo:dataset :table2;
+	scovo:dimesion schema:AllIndustries;
+	scovo:dimesion schema:From_1_To_99 .
+
+:table2_1_2 a scovo:Item;
+	rdf:value 9116;
+	scovo:dataset :table2;
+	scovo:dimesion schema:AllIndustries;
+	scovo:dimesion schema:From_100_To_249 .
+
+:table2_1_3 a scovo:Item;
+	rdf:value 7181;
+	scovo:dataset :table2;
+	scovo:dimesion schema:AllIndustries;
+	scovo:dimesion schema:250_And_Above .
+
+:table2_1_4 a scovo:Item;
+	rdf:value 17623;
+	scovo:dataset :table2;
+	scovo:dimesion schema:AllIndustries;
+	scovo:dimesion schema:Total .
