@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
 
 <!-- CSS --> 
 <style>
     body{
-        width:1060px;
-        margin:50px auto;
+        width:1080px;
+        margin:30px 170px;
     }
     path {  stroke:#fff; }
     path:hover {  opacity:0.9; }
@@ -13,14 +17,12 @@
     .axis {  font:10px sans-serif; }
     .legend tr{    border-bottom:1px solid grey; }
     .legend tr:first-child{    border-top:1px solid grey; }
-
     .axis path,
     .axis line {
         fill:none;
         stroke:#000;
         shape-rendering:crispEdges;
     }
-
     .x.axis path {  display:none; }
     .legend{
         vertical-align:center;
@@ -37,12 +39,38 @@
         align:right;
         width:50px;
     }
-
     .left {
         float: left;
     }
     .right {
         float: left;
+    }
+
+    .sidenav {
+        height: 100%;
+        width: 100px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+    .sidenav a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+    }
+    .sidenav a:hover {
+        color: #f1f1f1;
+    }
+
+    @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
     }
 </style>
 
@@ -133,13 +161,85 @@
         {Country:"Northern Ireland",freq:{low:72.8,high:0.0,all:27.2}},
         {Country:"UK",freq:{low:76.7,high:0.5,all:22.8}}
     ]
-</script>    
+ 
+    var gov1In=[
+        {Industry:"Manufacturing",freq:{one:63.5,two:14.0,three:44.3,four:19.3,five:4.8,six:8.6,seven:26.0}},
+        {Industry:"Water Supply, Sewerage, Waste Management and Remediation Activities",freq:{one:68.6,two:15.7,three:57.1,four:21.4,five:5.7,six:10.0,seven:21.4}},
+        {Industry:"Construction",freq:{one:80.9,two:13.5,three:59.9,four:28.7,five:6.0,six:9.6,seven:11.7}},
+        {Industry:"Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",freq:{one:72.6,two:44.6,three:60.1,four:25.0,five:13.3,six:9.0,seven:15.5}},
+        {Industry:"Accommodation and Food Service Activities",freq:{one:87.1,two:78.2,three:80.6,four:42.2,five:24.9,six:20.6,seven:2.7}},
+        {Industry:"Transportation and Storage",freq:{one:76.6,two:24.1,three:55.3,four:24.8,five:6.4,six:9.2,seven:16.7}},
+        {Industry:"Information and Communication",freq:{one:40.1,two:8.2,three:47.4,four:13.7,five:3.6,six:3.8,seven:37.3}},
+        {Industry:"Professional, Scientific and Technical Activities",freq:{one:62.6,two:12.6,three:66.2,four:18.6,five:4.9,six:8.1,seven:20.7}},
+        {Industry:"Administrative and Support Service Activities",freq:{one:75.7,two:20.1,three:63.7,four:20.5,five:21.8,six:12.3,seven:13.9}},
+        {Industry:"Education",freq:{one:40.5,two:8.5,three:26.3,four:7.0,five:2.2,six:2.8,seven:48.4}},
+        {Industry:"Human Health and Social Work Activities",freq:{one:34.5,two:13.4,three:16.2,four:6.3,five:10.6,six:2.8,seven:55.6}},
+        {Industry:"Arts, Entertainment and Recreation",freq:{one:76.3,two:57.2,three:61.2,four:33.1,five:18.0,six:18.3,seven:12.6}},
+        {Industry:"All Industries", freq:{one:67.2,two:27.4,three:56.4,four:22.3,five:11.2,six:9.9,seven:20.7}}
+    ]
 
-<!-- Helper Functions -->
-<script src="https://d3js.org/d3.v3.min.js"></script>
-<script>
+    var gov2In=[
+        {Industry:"Manufacturing",freq:{one:19.9,two:7.9,three:33.0,four:14.7,five:2.6,six:1.3,seven:23.7}},
+        {Industry:"Water Supply, Sewerage, Waste Management and Remediation Activities",freq:{one:28.6,two:4.3,three:37.1,four:15.7,five:1.4,six:4.3,seven:24.3}},
+        {Industry:"Construction",freq:{one:29.1,two:5.7,three:44.3,four:23.4,five:2.1,six:1.8,seven:27.0}},
+        {Industry:"Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",freq:{one:23.9,two:33.4,three:46.9,four:18.3,five:9.1,six:1.5,seven:16.0}},
+        {Industry:"Accommodation and Food Service Activities",freq:{one:25.1,two:63.3,three:59.6,four:30.6,five:17.8,six:3.5,seven:12.9}},
+        {Industry:"Transportation and Storage",freq:{one:28.7,two:14.5,three:44.0,four:18.8,five:2.5,six:2.5,seven:18.4}},
+        {Industry:"Information and Communication",freq:{one:15.4,two:3.1,three:39.7,four:10.6,five:1.7,six:1.0,seven:12.7}},
+        {Industry:"Professional, Scientific and Technical Activities",freq:{one:21.6,two:7.8,three:51.8,four:14.6,five:2.2,six:2.3,seven:17.6}},
+        {Industry:"Administrative and Support Service Activities",freq:{one:28.0,two:12.0,three:46.9,four:14.7,five:14.4,six:1.7,seven:20.6}},
+        {Industry:"Education",freq:{one:9.8,two:3.8,three:18.4,four:5.7,five:0.5,six:0.5,seven:22.8}},
+        {Industry:"Human Health and Social Work Activities",freq:{one:8.5,two:9.2,three:15.5,four:4.2,five:7.0,six:0.5,seven:14.1}},
+        {Industry:"Arts, Entertainment and Recreation",freq:{one:21.9,two:45.0,three:43.5,four:25.5,five:10.8,six:4.3,seven:17.6}},
+        {Industry:"All Industries", freq:{one:22.2,two:19.1,three:42.7,four:16.8,five:7.0,six:1.8,seven:18.9}}
+    ]
+
+    var gov3In=[
+        {Industry:"Manufacturing",freq:{one:38.3,two:8.1,three:16.7,four:9.2,five:2.8,six:6.6,seven:48.1}},
+        {Industry:"Water Supply, Sewerage, Waste Management and Remediation Activities",freq:{one:38.6,two:7.1,three:22.9,four:14.3,five:2.9,six:7.1,seven:45.7}},
+        {Industry:"Construction",freq:{one:42.9,two:3.2,three:17.4,four:9.6,five:5.0,six:11.0,seven:42.2}},
+        {Industry:"Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles",freq:{one:32.1,two:9.3,three:15.8,four:7.6,five:4.2,six:8.3,seven:53.8}},
+        {Industry:"Accommodation and Food Service Activities",freq:{one:40.4,two:18.0,three:23.5,four:13.7,five:6.1,six:12.2,seven:39.8}},
+        {Industry:"Transportation and Storage",freq:{one:35.5,two:9.6,three:19.9,four:7.8,five:2.1,six:7.4,seven:48.9}},
+        {Industry:"Information and Communication",freq:{one:26.0,two:7.0,three:16.3,four:6.7,five:2.9,six:5.0,seven:58.7}},
+        {Industry:"Professional, Scientific and Technical Activities",freq:{one:35.0,two:7.3,three:22.8,four:8.3,five:2.3,six:7.4,seven:50.3}},
+        {Industry:"Administrative and Support Service Activities",freq:{one:40.1,two:8.9,three:22.7,four:10.2,five:6.3,six:9.0,seven:45.0}},
+        {Industry:"Education",freq:{one:45.9,two:9.8,three:17.4,four:2.2,five:0.5,six:6.6,seven:42.1}},
+        {Industry:"Human Health and Social Work Activities",freq:{one:31.0,two:4.2,three:9.9,four:5.6,five:3.5,six:1.4,seven:58.5}},
+        {Industry:"Arts, Entertainment and Recreation",freq:{one:41.0,two:12.2,three:21.2,four:10.4,five:5.8,six:10.8,seven:39.2}},
+        {Industry:"All Industries", freq:{one:36.8,two:9.1,three:19.0,four:8.8,five:3.9,six:8.0,seven:48.2}}
+    ]
+
+    var gov1WF=[
+        {WF:"From 1 to 249",freq:{one:68.7,two:27.2,three:56.0,four:22.4,five:13.5,six:11.2,seven:19.8}},
+        {WF:"250 and Above",freq:{one:64.7,two:27.9,three:57.1,four:22.2,five:7.3,six:7.9,seven:22.3}},
+        {WF:"All Size Bands",freq:{one:67.2,two:27.4,three:56.4,four:22.3,five:11.2,six:9.9,seven:20.7}},
+    ]
+
+    var gov2WF=[
+        {WF:"From 1 to 249",freq:{one:22.1,two:18.6,three:40.7,four:16.8,five:8.5,six:2.3,seven:20.5}},
+        {WF:"250 and Above",freq:{one:22.4,two:20.0,three:46.1,four:16.8,five:4.6,six:1.1,seven:16.3}},
+        {WF:"All Size Bands",freq:{one:22.2,two:19.1,three:42.7,four:16.8,five:7.0,six:1.8,seven:18.9}},
+    ]
+
+    var gov3WF=[
+        {WF:"From 1 to 249",freq:{one:36.7,two:8.9,three:20.2,four:9.4,five:4.6,six:8.5,seven:48.0}},
+        {WF:"250 and Above",freq:{one:37.0,two:9.4,three:16.9,four:7.8,five:2.7,six:7.2,seven:48.6}},
+        {WF:"All Size Bands",freq:{one:36.8,two:9.1,three:19.0,four:8.8,five:3.9,six:8.0,seven:48.2}},
+    ]
+
+    var gov1Count=[
+        {Country:"England",freq:{one:67.3,two:27.4,three:57.3,four:22.4,five:10.9,six:9.7,seven:20.7}},
+        {Country:"Wales",freq:{one:73.8,two:38.7,three:65.1,four:25.5,five:13.7,six:12.7,seven:13.4}},
+        {Country:"Scotland",freq:{one:71.7,two:29.0,three:63.0,four:23.5,five:7.5,six:9.8,seven:16.5}},
+        {Country:"Northern Ireland",freq:{one:65.2,two:30.4,three:40.2,four:13.0,five:10.9,six:6.5,seven:23.9}},
+        {Country:"UK",freq:{one:67.2,two:27.4,three:56.4,four:22.3,five:11.2,six:9.9,seven:20.7}},
+    ]
+
     function segColor(c){
-        return {low:"#807dba",mid:"#e08214",high:"#41ab5d",all:'steelblue'}[c];
+        return {low:"#807dba",mid:"#e08214",high:"#41ab5d",all:'steelblue',
+                one:"#807dba", two:"#e08214", three:"#f1ab5d", four:"#41ab5d",
+                five:"#88ab3b", six:"#414b3f", seven:"#71a5ef"}[c];
     }
 
     function clear() {
@@ -147,20 +247,76 @@
         document.getElementById('key').innerHTML = "";
         document.getElementById('pie').innerHTML = "";
         document.getElementById('legend').innerHTML = "";
+        document.getElementById('t1').innerHTML = "";
+        document.getElementById('t2').innerHTML = "";
+        document.getElementById('t3').innerHTML = "";
         document.getElementById('hidden').style.display = "none";
     }
 </script>
 
 <!-- Body -->
 <body>
-<mat-toolbar _ngcontent-lcs-c70="" class="mat-toolbar mat-toolbar-single-row"><button _ngcontent-lcs-c70="" mat-icon-button="" aria-label="Sidenav toggle" mattooltip="Open Sidenav" class="mat-focus-indicator mat-tooltip-trigger menu-icon mat-icon-button mat-button-base" aria-describedby="cdk-describedby-message-0" cdk-describedby-host=""><span class="mat-button-wrapper"><mat-icon _ngcontent-lcs-c70="" role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">menu</mat-icon></span><span matripple="" class="mat-ripple mat-button-ripple mat-button-ripple-round"></span><span class="mat-button-focus-overlay"></span></button><!----><span _ngcontent-lcs-c70="">Open Data Innovation Coursework 1</span><span _ngcontent-lcs-c70="" aria-hidden="true" class="spacer"></span><button _ngcontent-lcs-c70="" mat-stroked-button="" color="warn" mattooltip="Open Help Panel" class="mat-focus-indicator mat-tooltip-trigger mat-stroked-button mat-button-base mat-warn" style="margin-right: 45px;" aria-describedby="cdk-describedby-message-1" cdk-describedby-host=""><span class="mat-button-wrapper"><mat-icon _ngcontent-lcs-c70="" role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">menu</mat-icon> Help </span><span matripple="" class="mat-ripple mat-button-ripple"></span><span class="mat-button-focus-overlay"></span></button><!----><span _ngcontent-lcs-c70=""></span></mat-toolbar>
+<div class="sidenav">
+    <a data-toggle="modal" data-target="#myModal" href="#myModal">Help</a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">About and Help</h3>
+      </div>
+
+      <div class="modal-body">
+        <h4>About the app</h4>
+        <p>This app allows for the visualisation and exploration of data obtained from a BICS survey
+            about businesses' responses to the pandemic.</p>
+        <p>The app uses d3.js for the visualisation of the graphs, and for hosting the website, 
+            Github Pages was used.</p>
+        <p>To query the RDF data, a server loaded the TTL files and they were queried with SPARQL which
+            was then converted into javascript objects to be used with the d3.js library for the frontend.</p>
+      </div>
+      <div class="modal-body">
+        <h4>The Linked Data Ontology</h4>
+        <p>The RDF files and example ontology may be found <a href="https://github.com/Leo-More/lm9g17.github.io/tree/main/files">here</a></p>
+      </div>
+      <div class="modal-body">
+        <h4>Multidimensional Data Visualisation of the graphs</h4>
+        <p>Filtering: Above the graphs, users may switch between different filters for the visualisation and
+            alternate between different filters.</p>
+        <p>Selections: By hovering over the bar chart, the user may select/filter the pie chart data
+            based on the industry. Similarly, by hovering over the pie chart, the user may select/filter
+            the bar chart data based on the workforce size.</p>
+        <p>The use of both bar charts and pie charts, allows for multi-view and exploration of the data.</p>
+        <p>Keys and legends are used for the user to understand the data in the charts.</p>
+      </div>
+      <div class="modal-body">
+        <h4>Graph Choice</h4>
+        <p>The bar chart was chosen because it allows for good visualisation of frequency distribution,
+            summarising the data in an interpretable manner.</p>
+        <p>The combination of bar charts and pie charts allows for multi-view and exploration of the data,
+            with the pie charts allowing for good visualisation of the proportion of the data.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
 <h1>Visualisation of dataset using D3</h1>
 <div id="choose">
     <h4 vertical-align="bottom">Select filter for visualisation:</h4>
     <select vertical-align="top" onchange="filter()" id="filter">
-        <option value="sent">Sent</option>
-        <option value="response">Responses</option>
-        <option value="trading">Trading Status</option>
+        <option value="sent">Sample size</option>
+        <option value="response">Response rates</option>
+        <option value="trading">Trading status</option>
+        <option value="gov1">Government schemes 1</option>
+        <option value="gov2">Government schemes 2</option>
+        <option value="gov3">Government schemes 3</option>
     </select>
 </div>
 <div>
@@ -168,7 +324,6 @@
     <div id='key' class='right'></div>
     <div id='pie' class='left'></div>
     <div id='legend' class='right'></div>
-    <div id='pPie' class='left'></div>
 </div>
 <div id='hidden'>
     <div>
@@ -206,7 +361,7 @@
     </div>
     
     <div>
-    <div>
+    <div id='hidden3'>
         <p vertical-align="bottom">Select country:</p>
         <select vertical-align="top" onchange="country()" id="countFilter">
             <option value="count5">UK</option>
@@ -218,6 +373,7 @@
     </div>
     <div id="t3"></div>
     </div>
+</div>
 </div>
 
 <!-- Functions -->
@@ -439,7 +595,7 @@
         var hG = histoGram(iF), key = key(iF), pC = pieChart(tF,'#pie'), leg = legend(tF,'#legend');
     }
 
-    function trading(fData, title) {
+    function trading(gov=false, govNum=-1) {
         function pieChart(pD,id){
             var pC ={},pieDim ={w:250, h:250};
             pieDim.r = Math.min(pieDim.w, pieDim.h) / 2;
@@ -459,9 +615,7 @@
             piesvg.selectAll("path").data(pie(pD)).enter().append("path").attr("d", arc)
                 .each(function(d) { this._current = d; })
                 .style("fill", function(d) { return segColor(d.data.type); })
-                .on("mouseover",mouseover).on("mouseout",mouseout);
 
-            // create function to update pie-chart. This will be used by histogram.
             pC.update = function(nD){
                 piesvg.selectAll("path").data(pie(nD)).transition().duration(500)
                     .attrTween("d", function(a) {
@@ -469,16 +623,6 @@
                         this._current = i(0);
                         return function(t) { return arc(i(t)); };
                 });
-            }
-            
-            function mouseover(d){
-            //    hG.update(fData.map(function(v){ 
-            //        return [v.Industry,v.freq[d.data.type]];}),segColor(d.data.type));
-            }
-            
-            function mouseout(d){
-            //    hG.update(fData.map(function(v){
-            //        return [v.Industry,v.all];}), 'steelblue');
             }
 
             return pC;
@@ -499,27 +643,57 @@
                 if (d.type == 'low') { return "Continuing to trade"; }
                 else if (d.type == 'high') { return "Has permanently ceased trading"; }
                 else if (d.type == 'all') { return "Has temporarily closed or temporarily paused trading"; }
+
+                else if (d.type == 'one') { return "Coronavirus job retention scheme" }
+                else if (d.type == 'two') { return "Business rates holiday" }
+                else if (d.type == 'three') { return "Deferring VAT payments" }
+                else if (d.type == 'four') { return "HMRC time to pay scheme" }
+                else if (d.type == 'five') { return "Government-funded small business grant or loan schemes" }
+                else if (d.type == 'six') { return "Accredited finance agreements" }
+                else if (d.type == 'seven') { return "We have not applied for any of these initiatives" }
             });
             tr.append("td").attr("class",'legendFreq')
                 .text(function(d){ return d.freq + '%';});
     
-            // Utility function to be used to update the legend.
             leg.update = function(nD){
                 // update the data attached to the row elements.
                 var l = legend.select("tbody").selectAll("tr").data(nD);
                 
                 l.select(".legendFreq").text(function(d){ return d.freq + '%';}); 
             }
-    
+            
             return leg;
         }
 
-        var t1 = ['low','high','all'].map(function(d){ return {type:d, freq:tradingIn[12].freq[d]}; });
-        var t2 = ['low','high','all'].map(function(d){ return {type:d, freq:tradingWf[2].freq[d]}; });
-        var t3 = ['low','high','all'].map(function(d){ return {type:d, freq:tradingCount[4].freq[d]}; });
+        if (gov) {
+            if (govNum==1) {
+                var t1 = ['one','two','three','four','five','six','seven'].map(function(d){ return {type:d, freq:gov1In[12].freq[d]}; });
+                var t2 = ['one','two','three','four','five','six','seven'].map(function(d){ return {type:d, freq:gov1WF[2].freq[d]}; });
+                var t3 = ['one','two','three','four','five','six','seven'].map(function(d){ return {type:d, freq:gov1Count[4].freq[d]}; });
+                p3 = pieChart(t3,'#t3'), l3 = legend(t3, '#t3');
+            }
+            else if (govNum==2) {
+                var t1 = ['one','two','three','four','five','six','seven'].map(function(d){ return {type:d, freq:gov2In[12].freq[d]}; });
+                var t2 = ['one','two','three','four','five','six','seven'].map(function(d){ return {type:d, freq:gov2WF[2].freq[d]}; });
+                var t3 = null;
 
-        p1 = pieChart(t1,'#t1'), p2 = pieChart(t2,'#t2'), p3 = pieChart(t3,'#t3');
-        l1 = legend(t1, '#t1'), l2 = legend(t2, '#t2'), l3 = legend(t3, '#t3');
+            }
+            else if (govNum==3) {
+                var t1 = ['one','two','three','four','five','six','seven'].map(function(d){ return {type:d, freq:gov3In[12].freq[d]}; });
+                var t2 = ['one','two','three','four','five','six','seven'].map(function(d){ return {type:d, freq:gov3WF[2].freq[d]}; });
+                var t3 = null;
+            }
+            p1 = pieChart(t1,'#t1'), p2 = pieChart(t2,'#t2');
+            l1 = legend(t1, '#t1'), l2 = legend(t2, '#t2');
+        }
+        else {
+            var t1 = ['low','high','all'].map(function(d){ return {type:d, freq:tradingIn[12].freq[d]}; });
+            var t2 = ['low','high','all'].map(function(d){ return {type:d, freq:tradingWf[2].freq[d]}; });
+            var t3 = ['low','high','all'].map(function(d){ return {type:d, freq:tradingCount[4].freq[d]}; });
+
+            p1 = pieChart(t1,'#t1'), p2 = pieChart(t2,'#t2'), p3 = pieChart(t3,'#t3');
+            l1 = legend(t1, '#t1'), l2 = legend(t2, '#t2'), l3 = legend(t3, '#t3');
+        }
     }
 
     function filter() {
@@ -533,27 +707,69 @@
         }
         else if (x == 'trading') {
             document.getElementById('hidden').style.display = "block";
-            trading(responsePercent,"hi");
+            document.getElementById('hidden3').style.display = "block";
+            trading(false);
+        }
+        else if (x == 'gov1') {
+            document.getElementById('hidden').style.display = "block";            
+            document.getElementById('hidden3').style.display = "block";
+            trading(true,1);
+        }
+        else if (x == 'gov2') {
+            document.getElementById('hidden').style.display = "block";
+            document.getElementById('hidden3').style.display = "none";
+            trading(true,2);
+        }
+        else if (x == 'gov3') {
+            document.getElementById('hidden').style.display = "block";
+            document.getElementById('hidden3').style.display = "none";
+            trading(true,3);
         }
     }
 
     function industry() {
         var x = document.getElementById("inFilter").value;
-        var nD = ['low','high','all'].map(function(d){ return {type:d, freq:tradingIn[parseInt(x.substring(2,3))-1].freq[d]}; }); 
+        var y = document.getElementById("filter").value;
+        var num = (x.length == 3) ? (parseInt(x.substring(2,3))-1) : (parseInt(x.substring(2,4))-1);
+        var nD = ['low','high','all'].map(function(d){ return {type:d, freq:tradingIn[num].freq[d]}; });
+        
+        if (y == "gov1") {
+            nD = ['one','two','three','four','five','six','seven'].map(function(d){ return {type:d, freq:gov1In[num].freq[d]}; });
+        } else if (y == "gov2") {
+            nD = ['one','two','three','four','five','six','seven'].map(function(d){ return {type:d, freq:gov2In[num].freq[d]}; });
+        } else if (y == "gov3") {
+            nD = ['one','two','three','four','five','six','seven'].map(function(d){ return {type:d, freq:gov3In[num].freq[d]}; });
+        }
         p1.update(nD);
         l1.update(nD);
     }
 
     function workforce() {
         var x = document.getElementById("wfFilter").value;
-        var nD = ['low','high','all'].map(function(d){console.log(x.substring(2,3)); return {type:d, freq:tradingWf[parseInt(x.substring(2,3))-1].freq[d]}; }); 
+        var y = document.getElementById("filter").value;
+        var num = (x.length == 3) ? (parseInt(x.substring(2,3))-1) : (parseInt(x.substring(2,4))-1);
+        var nD = ['low','high','all'].map(function(d){console.log(x.substring(2,3)); return {type:d, freq:tradingWf[num].freq[d]}; }); 
+
+        if (y == "gov1") {
+            nD = ['one','two','three','four','five','six','seven'].map(function(d){ return {type:d, freq:gov1WF[num].freq[d]}; });
+        } else if (y == "gov2") {
+            nD = ['one','two','three','four','five','six','seven'].map(function(d){ return {type:d, freq:gov2WF[num].freq[d]}; });
+        } else if (y == "gov3") {
+            nD = ['one','two','three','four','five','six','seven'].map(function(d){ return {type:d, freq:gov3WF[num].freq[d]}; });
+        }
         p2.update(nD);
         l2.update(nD);
     }
 
     function country() {
         var x = document.getElementById("countFilter").value;
-        var nD = ['low','high','all'].map(function(d){ return {type:d, freq:tradingCount[parseInt(x.substring(5,6))-1].freq[d]}; }); 
+        var y = document.getElementById("filter").value;
+        var num = (x.length == 3) ? (parseInt(x.substring(5,6))-1) : (parseInt(x.substring(5,7))-1);
+        var nD = ['low','high','all'].map(function(d){ return {type:d, freq:tradingCount[num].freq[d]}; }); 
+
+        if (y == "gov1") {
+            nD = ['one','two','three','four','five','six','seven'].map(function(d){ return {type:d, freq:gov1Count[num].freq[d]}; });
+        }
         p3.update(nD);
         l3.update(nD);
     }
